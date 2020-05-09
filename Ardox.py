@@ -112,15 +112,16 @@ async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
     rules = member.guild.get_channel(689059207466582024)
     wlcmmsg = random.choice(wlcmlist)
-    
+    verifyrole = discord.utils.get(user.guild.roles, name = 'Designer') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
     welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
     welcome.add_field(name=random.choice(wlcmlist),value=member.mention)
     welcome.set_image(url = random.choice(imgurl))
     await channel.send(embed=welcome)
+    await member.add_roles(verifyrole)
 
-@client.event
+'''@client.event
 async def on_raw_reaction_add(payload):
     print(payload)
     emoji = payload.emoji.name
@@ -129,7 +130,7 @@ async def on_raw_reaction_add(payload):
     verifyrole = discord.utils.get(user.guild.roles, name = 'Designer')
     if emoji == '✅' and payload.channel_id == channelid:
         await user.add_roles(verifyrole)
-        print('yes')
+        print('yes')'''
         
     
 @client.event
