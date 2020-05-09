@@ -1,0 +1,8 @@
+discord
+datetime
+time
+matplotlib
+numpy
+pandas
+async-timeout==3.0.1
+threading
