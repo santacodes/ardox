@@ -18,7 +18,7 @@ client = discord.Client()
 TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
 
 prefix = '#'
-guild = client.get_guild(604632893007986709)
+guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
@@ -95,7 +95,7 @@ async def change_presence():
 async def on_ready():
     print("Ready!")
     global thirty_percent
-    guild = client.get_guild(604632893007986709)
+    guild = client.get_guild(688009516410863647)
     print(guild)
     total_members = len(guild.members)
     print(total_members)
@@ -109,8 +109,8 @@ async def on_ready():
         
 @client.event 
 async def on_member_join(member):
-    channel = member.guild.get_channel(692250485440118826)
-    rules = member.guild.get_channel(604632893007986711)
+    channel = member.guild.get_channel(688009922935652426)
+    rules = member.guild.get_channel(689059207466582024)
     wlcmmsg = random.choice(wlcmlist)
     
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
@@ -124,7 +124,7 @@ async def on_member_join(member):
 async def on_raw_reaction_add(payload):
     print(payload)
     emoji = payload.emoji.name
-    channelid = 707529796124672104                #verifychannelID
+    channelid = 689059207466582024                #verifychannelID
     user = payload.member
     verifyrole = discord.utils.get(user.guild.roles, name = 'verified')
     if emoji == '✅' and payload.channel_id == channelid:
