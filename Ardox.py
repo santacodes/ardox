@@ -126,7 +126,7 @@ async def on_raw_reaction_add(payload):
     emoji = payload.emoji.name
     channelid = 689059207466582024                #verifychannelID
     user = payload.member
-    verifyrole = discord.utils.get(user.guild.roles, name = 'verified')
+    verifyrole = discord.utils.get(user.guild.roles, name = 'Designer')
     if emoji == '✅' and payload.channel_id == channelid:
         await user.add_roles(verifyrole)
         print('yes')
