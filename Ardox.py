@@ -71,7 +71,7 @@ def statistics(message):
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
                 
 def conti(message):
-    if str(message.author) != 'Designer#7099':
+    if str(message.author) != 'Ardox#9288':
         if str(message.author) in names:
             ind = names.index(str(message.author))
             count[ind] = count[ind] + 1
@@ -141,12 +141,13 @@ async def on_message(message):
             conti(message)
         elif (message.content.startswith(prefix+'help')):
             embed = discord.Embed(title = 'Bot Commands',
-                                description = "The default prefix is '!'",
+                                description = "The default prefix is '#'",
                                 colour = discord.Colour.red(),
                                 )
-            embed.add_field(name = '!cont', value = 'Shows the top 10 contributors of this Server')
+            embed.add_field(name = '#cont', value = 'Shows the top 10 contributors of this Server')
             embed.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
             await message.author.send(embed = embed)
+            await message.channel.purge(limit = 1)
             
         elif message.content.startswith(prefix+'clear'): 
             try:
