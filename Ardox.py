@@ -144,7 +144,7 @@ async def on_message(message):
                                 description = "The default prefix is '#'",
                                 colour = discord.Colour.red(),
                                 )
-            embed.add_field(name = '#cont', value = 'Shows the top 10 contributors of this Server')
+            embed.add_field(name = '#stats', value = 'Shows the top 10 contributors of this Server')
             embed.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
             await message.author.send(embed = embed)
             await message.channel.purge(limit = 1)
