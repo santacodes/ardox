@@ -122,7 +122,7 @@ async def on_member_join(member):
     await channel.send(embed=welcome)
     await member.add_roles(verifyrole)
 
-'''@client.event
+@client.event
 async def on_raw_reaction_add(payload):
     print(payload)
     emoji = payload.emoji.name
@@ -131,7 +131,7 @@ async def on_raw_reaction_add(payload):
     verifyrole = discord.utils.get(user.guild.roles, name = 'Designer')
     if emoji == '✅' and payload.channel_id == channelid:
         await user.add_roles(verifyrole)
-        print('yes')'''
+        print('yes')
         
     
 @client.event
