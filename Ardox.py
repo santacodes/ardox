@@ -18,7 +18,7 @@ client = discord.Client()
 TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
 
 prefix = '#'
-guild = client.get_guild(688009516410863647)
+#guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
@@ -42,6 +42,7 @@ b = []
 art_channels = ['gallery','graphic-design','product-design','photography','traditional-art','lightroom','motion','photoshop','interaction']
 
 thirty_percent = 0
+total_members  = 0
 
 for i in range(256):
     r.append(i)
@@ -116,7 +117,7 @@ async def on_member_join(member):
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
     welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
-    welcome.add_field(name=random.choice(wlcmlist),value=member.mention)
+    welcome.add_field(name=random.choice(wlcmlist)+', You are '+str(total_members+1) + 'th Member',value=member.mention)
     welcome.set_image(url = random.choice(imgurl))
     await channel.send(embed=welcome)
     await member.add_roles(verifyrole)
