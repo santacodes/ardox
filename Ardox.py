@@ -117,7 +117,7 @@ async def on_member_join(member):
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
     welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
-    welcome.add_field(name=random.choice(wlcmlist)+', You are '+str(total_members+1) + 'th Member',value=member.mention)
+    welcome.add_field(name=random.choice(wlcmlist)+', You are '+str(total_members+1) + 'th Member of Designer\'s Club',value=member.mention)
     welcome.set_image(url = random.choice(imgurl))
     await channel.send(embed=welcome)
     await member.add_roles(verifyrole)
