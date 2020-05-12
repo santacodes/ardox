@@ -158,14 +158,7 @@ async def on_raw_reaction_add(payload):
         await user.add_roles(verifyrole)
         await payload.message.reaction.remove(user = payload.member)
         print('yes')
-    elif payload.channel in art_channels:
-        art_features = user.guild.get_channel(704554980782243900)
-        indexl = payload.message.content.find('http')
-        link = payload.message.content[indexl]
-        acol = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
-        artf = discord.Embed(title = 'Featured Art',colour = acol)
-        artf.set_image(url = link)
-        await art_features.send(embed = artf)
+ 
         
     
 @client.event
@@ -236,7 +229,7 @@ async def on_message(message):
         print(top_ten_names,top_ten_count)
         
         
-@client.event
+'''@client.event
 async def on_reaction_add(reaction, user):
     if (reaction.message.channel in art_channels) and (reaction.count == 1):
         art_features = user.guild.get_channel(704554980782243900)
@@ -246,6 +239,9 @@ async def on_reaction_add(reaction, user):
         artf = discord.Embed(title = 'Featured Art',colour = acol)
         artf.set_image(url = link)
         await art_features.send(embed = artf)
-        
-
+    elif reaction.emoji == '✅' and reaction.message.channel == 'roles':
+        await user.add_roles(verifyrole)
+        await payload.message.reaction.remove(user = payload.member)
+        print('yes')'''
+ 
 client.run(TOKEN)
