@@ -101,7 +101,7 @@ async def on_ready():
     total_members = len(guild.members)
     print(total_members)
     thirty_percent = int((30/100)*total_members) + 1
-    game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
+    game1 = discord.Activity(name = str(total_members-2)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
     
     #await client.change_presence(status = discord.Status.online, activity = next(game))
