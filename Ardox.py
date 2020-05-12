@@ -186,14 +186,12 @@ async def on_message(message):
         elif message.content.startswith(prefix+'announce'): #date hour-minute
             pass #threading
         
-        elif message.content.find('discord.gg') == 8:
+        elif message.content.find('discord.gg'):
             message.channel.purge(limit = 1)
 
         conti(message)
         print(names,count)
         print(top_ten_names,top_ten_count)
-        
-
         
         
 #@client.event
