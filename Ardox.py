@@ -189,9 +189,7 @@ async def on_message(message):
         elif message.content.find('discord.gg') != -1:
             admin = discord.utils.get(message.author.roles, name = 'Admin')
             founder = discord.utils.get(message.author.roles, name = 'Founder')
-            if admin == 'Admin' and founder == 'Founder':
-                await message.channel.purge(limit = 1)
-
+            await message.channel.purge(limit = 1)
         conti(message)
         print(names,count)
         print(top_ten_names,top_ten_count)
