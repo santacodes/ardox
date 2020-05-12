@@ -187,7 +187,12 @@ async def on_message(message):
             pass #threading
         
         elif message.content.find('discord.gg') != -1:
-            await message.channel.purge(limit = 1)
+            admin = discord.utils.get(message.author.roles, name = 'Admin')
+            founder = discord.utils.get(message.author.roles, name = 'Founder')
+            if admin and founder:
+                continue
+            else:
+                await message.channel.purge(limit = 1)
 
         conti(message)
         print(names,count)
