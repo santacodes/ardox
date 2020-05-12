@@ -188,7 +188,7 @@ async def on_message(message):
         
         elif message.content.find('discord.gg') != -1:
             #if str(message.content.author) == 
-            message.channel.purge(1)
+            message.channel.purge(limit = 1)
 
         conti(message)
         print(names,count)
