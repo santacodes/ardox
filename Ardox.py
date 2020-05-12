@@ -113,11 +113,12 @@ async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
     rules = member.guild.get_channel(689059207466582024)
     wlcmmsg = random.choice(wlcmlist)
+    tm= len(guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
     welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
-    welcome.add_field(name=random.choice(wlcmlist)+', You are '+str(total_members+1) + 'th Member of Designer\'s Club',value=member.mention)
+    welcome.add_field(name=random.choice(wlcmlist)+', You are '+str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
     welcome.set_image(url = random.choice(imgurl))
     await channel.send(embed=welcome)
     #await member.add_roles(verifyrole)
@@ -161,7 +162,7 @@ async def on_message(message):
                     conti(message)
                 else:
                     noperm = discord.Embed(title = 'You Do Not have the Permission to use this command!', colour = discord.Color.red())
-                    perm.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
+                    noperm.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
                     await message.channel.send(embed = noperm)
                     conti(message)
             except:
