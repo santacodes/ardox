@@ -189,6 +189,7 @@ async def on_message(message):
         elif message.content.find('discord.gg') != -1:
             admin = discord.utils.get(message.author.roles, name = 'Admin')
             founder = discord.utils.get(message.author.roles, name = 'Founder')
+            warninv = discord.Embed(title = 'Warning! You can get banned', description = 'Don\'t use invites here', colour = discord.Color.red())
             await message.channel.purge(limit = 1)
         conti(message)
         print(names,count)
