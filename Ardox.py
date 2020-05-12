@@ -23,7 +23,7 @@ channels = ['bot-commands']
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
             'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
-            'The times we spend with you is always so full of joy and happiness. Knowing that youll be with us, brings the smile on our face. Welcome to our Server!',
+            'The times we spend with you is always so full of joy and happiness. Knowing that you\'ll be with us, brings the smile on our face. Welcome to our Server!',
             "The entire team of Designer's Club is honored to welcome you on board. Enjoy the facilities here and make sure your talents are fully utilized!",
             'We are delighted to have you among us. On behalf of all the members and the management, we would like to extend our warmest welcome and good wishes!',
             'The entire team of Designer\'s Club is thrilled to welcome you on board. We hope you\'ll do some amazing works here!',
