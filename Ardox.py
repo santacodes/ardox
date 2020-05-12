@@ -35,11 +35,13 @@ hihello = ['Hi','Hey There!','Hello','Yo']
 
 bot = ['Designer#7099']
 
+warnings = []
+
 r = []
 g = []
 b = []
 
-art_channels = ['gallery','graphic-design','product-design','photography','traditional-art','lightroom','motion','photoshop','interaction']
+art_channels = ['test','gallery','graphic-design','product-design','photography','traditional-art','lightroom','motion','photoshop','interaction']
 
 thirty_percent = 0
 total_members  = 0
@@ -116,12 +118,34 @@ async def on_member_join(member):
     tm= len(member.guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
-    welcome = discord.Embed(title="Welcome to Designer's Club",
+    st = ''
+    nd = ''
+    rd = ''
+    if int(str(tm+1)[-1]) == 1:
+        welcome = discord.Embed(title="Welcome to Designer's Club",
+                                    colour=col)
+        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'st Member of Designer\'s Club',value=member.mention)
+        welcome.set_image(url = random.choice(imgurl))
+        await channel.send(embed=welcome)
+    elif int(str(tm+1)[-1]) == 2:
+        welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
-    welcome.add_field(name=random.choice(wlcmlist)+', You are '+str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
-    welcome.set_image(url = random.choice(imgurl))
-    await channel.send(embed=welcome)
-    #await member.add_roles(verifyrole)
+        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Designer\'s Club',value=member.mention)
+        welcome.set_image(url = random.choice(imgurl))
+        await channel.send(embed=welcome)
+    elif int(str(tm+1)[-1]) == 3:
+        welcome = discord.Embed(title="Welcome to Designer's Club",
+                                   colour=col)
+        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'rd Member of Designer\'s Club',value=member.mention)
+        welcome.set_image(url = random.choice(imgurl))
+        await channel.send(embed=welcome)
+    else:
+        welcome = discord.Embed(title="Welcome to Designer's Club",
+                                   colour=col)
+        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
+        welcome.set_image(url = random.choice(imgurl))
+        await channel.send(embed=welcome)
+        #await member.add_roles(verifyrole)
 
 @client.event
 async def on_raw_reaction_add(payload):
@@ -189,20 +213,31 @@ async def on_message(message):
         elif message.content.find('discord.gg') != -1:
             admin = discord.utils.get(message.author.roles, name = 'Admin')
             founder = discord.utils.get(message.author.roles, name = 'Founder')
-            warninv = discord.Embed(title = 'Warning! You can get banned', description = 'Don\'t use invites here', colour = discord.Color.red())
-            await message.channel.purge(limit = 1)
+            if admin or founder:
+                pass
+            elif str(message.author) in warnings:
+                await message.author.ban
+            else:
+                warninv = discord.Embed(title = 'Warning! You will get banned if you invite in the server another time', description = 'Invites are banned in this Server', colour = discord.Color.red())
+                warnings.append(str(message.author))
+                await message.channel.purge(limit = 1)
+                await message.author.send(embed = warninv)
+
         conti(message)
         print(names,count)
         print(top_ten_names,top_ten_count)
         
         
-#@client.event
-#async def on_reaction_add(reaction, user):
-#    if (reaction.message.channel in art_channels) and (reaction.count == thirty_percent):
-#        art_features = user.guild.get_channel(704554980782243900)
-#        attachment = reaction.message.attachment
-#        image = open(file = str(reaction.message.author))
-#        await art_features.send(image)
-#        await attachment.save(str(reaction.message.author))
+@client.event
+async def on_reaction_add(reaction, user):
+    if (reaction.message.channel in art_channels) and (reaction.count == 1):
+        art_features = user.guild.get_channel(704554980782243900)
+        indexl = reaction.message.content.find('http')
+        link = reaction.message.content[indexl]
+        acol = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
+        artf = discord.Embed(title = 'Featured Art',colour = acol)
+        artf.set_image(url = link)
+        await art_features.send(embed = artf)
+        
 
 client.run(TOKEN)
