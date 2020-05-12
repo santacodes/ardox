@@ -186,8 +186,7 @@ async def on_message(message):
         elif message.content.startswith(prefix+'announce'): #date hour-minute
             pass #threading
         
-        elif message.content.find('discord.gg') != -1:
-            #if str(message.content.author) == 
+        elif message.content.find('discord.gg') == 8:
             message.channel.purge(limit = 1)
 
         conti(message)
