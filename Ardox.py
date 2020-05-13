@@ -118,9 +118,6 @@ async def on_member_join(member):
     tm= len(member.guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
-    st = ''
-    nd = ''
-    rd = ''
     if int(str(tm+1)[-1]) == 1:
         welcome = discord.Embed(title="Welcome to Designer's Club",
                                     colour=col)
@@ -133,6 +130,7 @@ async def on_member_join(member):
         welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Designer\'s Club',value=member.mention)
         welcome.set_image(url = random.choice(imgurl))
         await channel.send(embed=welcome)
+        on_ready()
     elif int(str(tm+1)[-1]) == 3:
         welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
