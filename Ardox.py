@@ -114,7 +114,7 @@ async def change_presence():
     guild = client.get_guild(688009516410863647)
     print(guild)
     total_members = len(guild.members)
-    game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
+    game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
 
 @client.event 
