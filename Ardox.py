@@ -104,12 +104,19 @@ async def on_ready():
     print(total_members)
     thirty_percent = int((30/100)*total_members) + 1
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
-    await client.change_presence(status = discord.Status.online, activity = (game1))
-    
+    await client.change_presence(status = discord.Status.online, activity = (game1)) 
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
-        
+
+@tasks.loop(seconds = 5)
+async def change_presence():
+    guild = client.get_guild(688009516410863647)
+    print(guild)
+    total_members = len(guild.members)
+    game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
+    await client.change_presence(status = discord.Status.online, activity = (game1))
+
 @client.event 
 async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
@@ -130,7 +137,7 @@ async def on_member_join(member):
         welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Designer\'s Club',value=member.mention)
         welcome.set_image(url = random.choice(imgurl))
         await channel.send(embed=welcome)
-        on_ready()
+        #on_ready()
     elif int(str(tm+1)[-1]) == 3:
         welcome = discord.Embed(title="Welcome to Designer's Club",
                                    colour=col)
