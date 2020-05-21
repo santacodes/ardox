@@ -118,6 +118,13 @@ async def change_presence():
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
 
+@client.event
+async def on_member_remove(member):
+    mod_logs = member.guild.get_channel(713074242543157388)
+    leave_embed = discord.Embed(title = member.name + 'Just Left the Server',colour = discord.Color.red())
+    await mod_logs.send(embed = leave_embed)
+
+
 @client.event 
 async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
@@ -126,6 +133,9 @@ async def on_member_join(member):
     tm= len(member.guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
+    mod_logs = member.guild.get_channel(713074242543157388)
+    join_embed = discord.Embed(title = member.name + 'Just Joined the Server', colour = discord.Color.green())
+    await mod_logs.send(embed = join_embed)
     if int(str(tm+1)[-1]) == 1:
         welcome = discord.Embed(title="Welcome to Designer's Club",
                                     colour=col)
@@ -236,19 +246,20 @@ async def on_message(message):
         conti(message)
         print(names,count)
         print(top_ten_names,top_ten_count)
-        
-        
+
+
 '''@client.event
 async def on_reaction_add(reaction, user):
-    if (reaction.message.channel in art_channels) and (reaction.count == 1):
+    if (str(reaction.message.channel) in art_channels) and (reaction.count == 1):
         art_features = user.guild.get_channel(704554980782243900)
         indexl = reaction.message.content.find('http')
         link = reaction.message.content[indexl]
         acol = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
         artf = discord.Embed(title = 'Featured Art',colour = acol)
         artf.set_image(url = link)
+        artf.set_author(author = reaction.message.author.mention, icon_url = reaction.message.author.avatar_url)
         await art_features.send(embed = artf)
-    elif reaction.emoji == '✅' and reaction.message.channel == 'roles':
+    elif reaction.emoji == '✅' and str(reaction.message.channel) == 'roles':
         await user.add_roles(verifyrole)
         await payload.message.reaction.remove(user = payload.member)
         print('yes')'''
