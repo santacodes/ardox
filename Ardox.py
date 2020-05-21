@@ -12,6 +12,7 @@ from itertools import cycle
 from discord.ext import tasks
 from discord import Activity
 import threading
+import sqlite3
 
 client = discord.Client()
 
@@ -201,7 +202,10 @@ async def on_message(message):
                 await message.author.send(embed = purge)    
         
         elif str(message.channel.category).lower() == 'art':
-            await message.add_reaction('👍')
+            if message.content.find('http') != -1:
+                await message.add_reaction('👍')
+            elif message.attachments:
+                await message.add_reaction('👍')
             conti(message)
     
         elif message.content.startswith(prefix+'stats'):
