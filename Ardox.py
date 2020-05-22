@@ -130,6 +130,7 @@ async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
     rules = member.guild.get_channel(689059207466582024)
     wlcmmsg = random.choice(wlcmlist)
+    inviter_boy = 
     tm= len(member.guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
@@ -163,7 +164,18 @@ async def on_member_join(member):
         await channel.send(embed=welcome)
         #await member.add_roles(verifyrole)
 
-@client.event
+@client.event 
+async def on_member_ban(guild, user):
+    mod_logs = member.guild.get_channel(713074242543157388)
+    ban_embed = discord.Embed(title = user.name + 'Just got banned', colour = discord.Color.blue())
+    await mod_logs.send(embed = ban_embed)
+
+@client.event 
+async def on_member_unban(guild, user):
+    mod_logs = member.guild.get_channel(713074242543157388)
+    unban_embed = discord.Embed(title = member.name + 'Just got Unbanned', colour = discord.Color.dark_magenta())
+
+'''@client.event
 async def on_raw_reaction_add(payload):
     print(payload)
     emoji = payload.emoji.name
@@ -173,7 +185,7 @@ async def on_raw_reaction_add(payload):
     if emoji == '✅' and payload.channel_id == channelid:
         await user.add_roles(verifyrole)
         await payload.message.reaction.remove(user = payload.member)
-        print('yes')
+        print('yes')'''
  
         
     
@@ -248,7 +260,7 @@ async def on_message(message):
         print(top_ten_names,top_ten_count)
 
 
-'''@client.event
+@client.event
 async def on_reaction_add(reaction, user):
     if (str(reaction.message.channel) in art_channels) and (reaction.count == 1):
         art_features = user.guild.get_channel(704554980782243900)
@@ -262,6 +274,6 @@ async def on_reaction_add(reaction, user):
     elif reaction.emoji == '✅' and str(reaction.message.channel) == 'roles':
         await user.add_roles(verifyrole)
         await payload.message.reaction.remove(user = payload.member)
-        print('yes')'''
+        print('yes')
  
 client.run(TOKEN)
