@@ -130,7 +130,7 @@ async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
     rules = member.guild.get_channel(689059207466582024)
     wlcmmsg = random.choice(wlcmlist)
-    inviter_boy = 
+    inviter_boy = ''
     tm= len(member.guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
