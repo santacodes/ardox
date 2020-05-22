@@ -121,7 +121,7 @@ async def change_presence():
 @client.event
 async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
-    leave_embed = discord.Embed(title = member.name + 'Just Left the Server',colour = discord.Color.red())
+    leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
     await mod_logs.send(embed = leave_embed)
 
 
@@ -135,7 +135,7 @@ async def on_member_join(member):
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
     mod_logs = member.guild.get_channel(713074242543157388)
-    join_embed = discord.Embed(title = member.name + 'Just Joined the Server', colour = discord.Color.green())
+    join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
     await mod_logs.send(embed = join_embed)
     if int(str(tm+1)[-1]) == 1:
         welcome = discord.Embed(title="Welcome to Designer's Club",
@@ -167,13 +167,13 @@ async def on_member_join(member):
 @client.event 
 async def on_member_ban(guild, user):
     mod_logs = member.guild.get_channel(713074242543157388)
-    ban_embed = discord.Embed(title = user.name + 'Just got banned', colour = discord.Color.blue())
+    ban_embed = discord.Embed(title = user.name + ' Just got banned', colour = discord.Color.blue())
     await mod_logs.send(embed = ban_embed)
 
 @client.event 
 async def on_member_unban(guild, user):
     mod_logs = member.guild.get_channel(713074242543157388)
-    unban_embed = discord.Embed(title = member.name + 'Just got Unbanned', colour = discord.Color.dark_magenta())
+    unban_embed = discord.Embed(title = member.name + ' Just got Unbanned', colour = discord.Color.dark_magenta())
 
 '''@client.event
 async def on_raw_reaction_add(payload):
@@ -273,7 +273,7 @@ async def on_reaction_add(reaction, user):
         await art_features.send(embed = artf)
     elif reaction.emoji == '✅' and str(reaction.message.channel) == 'rules':
         guild = client.get_guild(688009516410863647)
-        verifyrole = discord.utils.get(guild.roles, name = 'Member')
+        verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
         await user.add_roles(verifyrole)
         await reaction.remove(user = user)
         print('yes')
