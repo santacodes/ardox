@@ -271,10 +271,10 @@ async def on_reaction_add(reaction, user):
         artf.set_image(url = link)
         artf.set_author(author = reaction.message.author.mention, icon_url = reaction.message.author.avatar_url)
         await art_features.send(embed = artf)
+
     elif reaction.emoji == '✅' and str(reaction.message.channel) == 'rules':
-        guild = client.get_guild(688009516410863647)
         verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
-        await user.add_roles(verifyrole)
+        await user.add_roles(user, verifyrole)
         await reaction.remove(user = user)
         print('yes')
  
