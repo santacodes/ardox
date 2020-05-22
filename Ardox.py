@@ -129,41 +129,42 @@ async def on_member_remove(member):
 
 @client.event 
 async def on_member_join(member):
-    channel = member.guild.get_channel(688009922935652426)
-    rules = member.guild.get_channel(689059207466582024)
-    wlcmmsg = random.choice(wlcmlist)
-    tm= len(member.guild.members)
-    verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
-    col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
-    mod_logs = member.guild.get_channel(713074242543157388)
-    join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
-    await mod_logs.send(embed = join_embed)
-    if int(str(tm+1)[-1]) == 1:
-        welcome = discord.Embed(title="Welcome to Designer's Club",
+    if str(member) != 'testuser#7926':
+        channel = member.guild.get_channel(688009922935652426)
+        rules = member.guild.get_channel(689059207466582024)
+        wlcmmsg = random.choice(wlcmlist)
+        tm= len(member.guild.members)
+        verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
+        col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
+        mod_logs = member.guild.get_channel(713074242543157388)
+        join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
+        await mod_logs.send(embed = join_embed)
+        if int(str(tm+1)[-1]) == 1:
+            welcome = discord.Embed(title="Welcome to Designer's Club",
+                                        colour=col)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'st Member of Designer\'s Club',value=member.mention)
+            welcome.set_image(url = random.choice(imgurl))
+            await channel.send(embed=welcome)
+        elif int(str(tm+1)[-1]) == 2:
+            welcome = discord.Embed(title="Welcome to Designer's Club",
                                     colour=col)
-        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'st Member of Designer\'s Club',value=member.mention)
-        welcome.set_image(url = random.choice(imgurl))
-        await channel.send(embed=welcome)
-    elif int(str(tm+1)[-1]) == 2:
-        welcome = discord.Embed(title="Welcome to Designer's Club",
-                                   colour=col)
-        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Designer\'s Club',value=member.mention)
-        welcome.set_image(url = random.choice(imgurl))
-        await channel.send(embed=welcome)
-        #on_ready()
-    elif int(str(tm+1)[-1]) == 3:
-        welcome = discord.Embed(title="Welcome to Designer's Club",
-                                   colour=col)
-        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'rd Member of Designer\'s Club',value=member.mention)
-        welcome.set_image(url = random.choice(imgurl))
-        await channel.send(embed=welcome)
-    else:
-        welcome = discord.Embed(title="Welcome to Designer's Club",
-                                   colour=col)
-        welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
-        welcome.set_image(url = random.choice(imgurl))
-        await channel.send(embed=welcome)
-        #await member.add_roles(verifyrole)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Designer\'s Club',value=member.mention)
+            welcome.set_image(url = random.choice(imgurl))
+            await channel.send(embed=welcome)
+            #on_ready()
+        elif int(str(tm+1)[-1]) == 3:
+            welcome = discord.Embed(title="Welcome to Designer's Club",
+                                    colour=col)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'rd Member of Designer\'s Club',value=member.mention)
+            welcome.set_image(url = random.choice(imgurl))
+            await channel.send(embed=welcome)
+        else:
+            welcome = discord.Embed(title="Welcome to Designer's Club",
+                                    colour=col)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
+            welcome.set_image(url = random.choice(imgurl))
+            await channel.send(embed=welcome)
+            #await member.add_roles(verifyrole)
 
 @client.event 
 async def on_member_ban(guild, user):
