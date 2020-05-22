@@ -188,7 +188,18 @@ async def on_raw_reaction_add(payload):
         await user.add_roles(verifyrole)
         await payload.message.reaction.remove(user = payload.member)
         print('yes')
- 
+    elif emoji == '👍' and emoji.count == thirty_percent:
+        if (str(payload.reaction.message.channel) in art_channels):
+            art_features = user.guild.get_channel(704554980782243900)
+            indexl = payload.reaction.message.content.find('http')
+            link = payload.reaction.message.content[indexl]
+            acol = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
+            artf = discord.Embed(title = 'Featured Art',colour = acol)
+            artf.set_image(url = link)
+            artf.set_author(name = payload.reaction.message.author.mention, icon_url = payload.reaction.message.author.avatar_url)
+            await art_features.send(embed = artf)
+
+
     
 @client.event
 async def on_message(message):
