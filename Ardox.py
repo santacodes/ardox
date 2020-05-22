@@ -58,6 +58,8 @@ top_ten_count = [0,0,0,0,0,0,0,0,0,0]
 names = []
 count = []
 
+verifyrole = ''
+
 def statistics(message):
     for no in count:
         for na in top_ten_count:
@@ -130,7 +132,6 @@ async def on_member_join(member):
     channel = member.guild.get_channel(688009922935652426)
     rules = member.guild.get_channel(689059207466582024)
     wlcmmsg = random.choice(wlcmlist)
-    inviter_boy = ''
     tm= len(member.guild.members)
     verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
     col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
@@ -274,8 +275,7 @@ async def on_reaction_add(reaction, user):
 
     elif reaction.emoji == '✅' and str(reaction.message.channel) == 'rules':
         verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
-        await user.add_roles(user, verifyrole)
-        await reaction.remove(user = user)
+        await user.add_roles(verifyrole)
         print('yes')
  
 client.run(TOKEN)
