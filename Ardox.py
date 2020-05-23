@@ -88,6 +88,8 @@ def conti(message):
             names.append(str(message.author))
             count.append(1)
 
+async def member_count_channel(channel,totalmembers):
+    await channel.edit(name = 'Member Count - ' + totalmembers)
 
 '''@tasks.loop(seconds = 5)
 async def change_presence():
@@ -106,8 +108,10 @@ async def on_ready():
     total_members = len(guild.members)
     print(total_members)
     thirty_percent = int((30/100)*total_members) + 1
+    member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1)) 
+    await member_count_channel(channel = member_channel_count,totalmembers = total_members) 
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
@@ -130,15 +134,18 @@ async def on_member_remove(member):
 @client.event 
 async def on_member_join(member):
     if str(member) != 'testuser#7926':
+        global total_members
         channel = member.guild.get_channel(688009922935652426)
         rules = member.guild.get_channel(689059207466582024)
         wlcmmsg = random.choice(wlcmlist)
         tm= len(member.guild.members)
         verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
+        member_channel_count = member.guild.get_channel(713649217054441532)
         col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
+        await member_count_channel(channel = member_channel_count,totalmembers = total_members)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
@@ -205,6 +212,8 @@ async def on_raw_reaction_add(payload):
 async def on_message(message):
         author_roles = discord.utils.get(message.author.roles, name = 'Staff')
         if message.content.startswith(prefix+'hi') or message.content.startswith('hi') or message.content.startswith('Hi'):
+            #await trigger_typing()
+            #time.sleep(2)
             await message.channel.send(random.choice(hihello))
             conti(message)
         elif (message.content.startswith(prefix+'help')):
