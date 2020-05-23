@@ -59,7 +59,7 @@ names = []
 count = []
 
 verifyrole = ''
-
+guild = client.get_guild(688009516410863647)
 member_channel_count = guild.get_channel(713649217054441532)
 
 def statistics(message):
