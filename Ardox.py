@@ -116,7 +116,7 @@ async def on_ready():
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1)) 
-    
+    member_count_channel.start()
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
