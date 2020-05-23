@@ -94,7 +94,7 @@ async def member_count_channel(channel):
         guild = client.get_guild(688009516410863647)
         total_members = len(guild.members)
         await channel.edit(name = 'Member Count - ' + str(total_members))
-        time.sleep(5)      
+        print('yes')     
 
 '''@tasks.loop(seconds = 5)
 async def change_presence():
