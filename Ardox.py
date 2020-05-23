@@ -34,8 +34,6 @@ imgurl = ['https://i.imgur.com/lZOA6s8.jpg','https://i.imgur.com/kLHHD12.jpg','h
 
 hihello = ['Hi','Hey There!','Hello','Yo']
 
-bot = ['Designer#7099']
-
 warnings = []
 
 r = []
