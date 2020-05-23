@@ -247,7 +247,7 @@ async def on_message(message):
         elif str(message.channel.category).lower() == 'art':
             if message.content.find('http') != -1:
                 await message.add_reaction('👍')
-            elif message == discord.Attachments:
+            elif message is discord.Attachment:
                 await message.add_reaction('👍')
             conti(message)
     
