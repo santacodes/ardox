@@ -303,6 +303,6 @@ async def on_reaction_add(reaction, user):
         await user.add_roles(verifyrole)
         print('yes')'''
 
-member_count_func = threading.Thread(target = member_count_channel(channel = member_channel_count)) 
-
 client.run(TOKEN)
+
+member_count_func = threading.Thread(target = member_count_channel(channel = member_count_channel)) 
