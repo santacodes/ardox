@@ -60,6 +60,8 @@ count = []
 
 verifyrole = ''
 
+member_channel_count = guild.get_channel(713649217054441532)
+
 def statistics(message):
     for no in count:
         for na in top_ten_count:
@@ -89,10 +91,12 @@ def conti(message):
             count.append(1)
 
 
-async def member_count_channel(channel):
-    guild = client.get_guild(688009516410863647)
-    total_members = len(guild.members)
-    await channel.edit(name = 'Member Count - ' + str(total_members))
+def member_count_channel(channel):
+    while True: 
+        guild = client.get_guild(688009516410863647)
+        total_members = len(guild.members)
+        await channel.edit(name = 'Member Count - ' + str(total_members))
+        time.sleep(5)      
 
 '''@tasks.loop(seconds = 5)
 async def change_presence():
@@ -148,7 +152,7 @@ async def on_member_join(member):
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
-        await member_count_channel(channel = member_channel_count)
+        member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
@@ -300,5 +304,7 @@ async def on_reaction_add(reaction, user):
         verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
         await user.add_roles(verifyrole)
         print('yes')'''
- 
+
+member_count_func = threading.Thread(target = member_count_channel(channel = member_channel_count)) 
+
 client.run(TOKEN)
