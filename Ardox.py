@@ -89,11 +89,11 @@ def conti(message):
             count.append(1)
 
 
-def member_count_channel(channel):
+async def member_count_channel(channel):
     while True: 
         guild = client.get_guild(688009516410863647)
         total_members = len(guild.members)
-        channel.edit(name = 'Member Count - ' + str(total_members))
+        def channel.edit(name = 'Member Count - ' + str(total_members))
         time.sleep(5)      
 
 '''@tasks.loop(seconds = 5)
