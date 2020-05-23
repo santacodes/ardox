@@ -88,12 +88,12 @@ def conti(message):
             names.append(str(message.author))
             count.append(1)
 
-
+@tasks.loop(seconds = 5)
 async def member_count_channel(channel):
     while True: 
         guild = client.get_guild(688009516410863647)
         total_members = len(guild.members)
-        def channel.edit(name = 'Member Count - ' + str(total_members))
+        await channel.edit(name = 'Member Count - ' + str(total_members))
         time.sleep(5)      
 
 '''@tasks.loop(seconds = 5)
@@ -116,12 +116,13 @@ async def on_ready():
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1)) 
-    member_count_channel(channel = member_channel_count) 
+    await member_count_channel(member_channel_count)
+    
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
 
-@tasks.loop(seconds = 5)
+
 async def change_presence():
     guild = client.get_guild(688009516410863647)
     print(guild)
@@ -150,7 +151,6 @@ async def on_member_join(member):
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
-        member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
@@ -303,6 +303,5 @@ async def on_reaction_add(reaction, user):
         await user.add_roles(verifyrole)
         print('yes')'''
 
-client.run(TOKEN)
+client.run(TOKEN, reconnect = True)
 
-member_count_func = threading.Thread(target = member_count_channel(channel = member_count_channel)) 
