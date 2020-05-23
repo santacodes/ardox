@@ -88,7 +88,7 @@ def conti(message):
             names.append(str(message.author))
             count.append(1)
 
-@tasks.loop(seconds = 10)
+
 async def member_count_channel(channel):
     guild = client.get_guild(688009516410863647)
     total_members = len(guild.members)
