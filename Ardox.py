@@ -89,7 +89,7 @@ def conti(message):
             count.append(1)
 
 async def member_count_channel(channel,totalmembers):
-    await channel.edit(name = 'Member Count - ' + totalmembers)
+    await channel.edit(name = 'Member Count - ' + str(totalmembers))
 
 '''@tasks.loop(seconds = 5)
 async def change_presence():
