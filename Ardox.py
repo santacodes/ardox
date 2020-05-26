@@ -23,8 +23,7 @@ prefix = '#'
 channels = ['bot-commands']
 
 conn = sqlite3.connect('stats.db')
-
-
+c = conn.cursor()
 
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
@@ -64,7 +63,6 @@ count = []
 verifyrole = ''
 
 def statistics(message):
-    c = conn.cursor()
     c.execute('select name from stats')
     names = c.fetchall()
     c.execute('select count from stats')
@@ -83,10 +81,9 @@ def statistics(message):
                 plt.xlabel('Messages')
                 plt.ylabel('UserID')
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
-    conn.close()
+    
 
 def conti(message):
-    c = conn.cursor()
     c.execute('select name from stats')
     names = c.fetchall()
     c.execute('select count from stats')
@@ -106,7 +103,7 @@ def conti(message):
             c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))
             #names.append(str(message.author))
             #count.append(1)
-    conn.close()
+    
     
 async def member_count_channel(channel): 
     guild = client.get_guild(688009516410863647)
