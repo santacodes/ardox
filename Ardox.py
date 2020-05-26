@@ -22,6 +22,11 @@ prefix = '#'
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
+conn = sqlite3.connect('stats.db')
+
+
+
+
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
             'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
             'The times we spend with you is always so full of joy and happiness. Knowing that you\'ll be with us, brings the smile on our face. Welcome to our Server!',
@@ -59,6 +64,11 @@ count = []
 verifyrole = ''
 
 def statistics(message):
+    c = conn.cursor()
+    c.execute('select name from stats')
+    names = c.fetchall()
+    c.execute('select count from stats')
+    count = c.fetchall()
     for no in count:
         for na in top_ten_count:
             if no > na and (names[count.index(no)] not in top_ten_names):
@@ -73,26 +83,36 @@ def statistics(message):
                 plt.xlabel('Messages')
                 plt.ylabel('UserID')
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
-                
+    conn.close()
+
 def conti(message):
+    c = conn.cursor()
+    c.execute('select name from stats')
+    names = c.fetchall()
+    c.execute('select count from stats')
+    count = c.fetchall()
     if str(message.author) != 'Ardox#9288':
         if str(message.author) in names:
             ind = names.index(str(message.author))
-            count[ind] = count[ind] + 1
-            if str(message.author) in top_ten_names:
+            c.execute(('select count from stats where name = {}').format(str(message.author)))
+            initcount = c.fetchone()
+            fincount = initcount + 1
+            c.execute(('update stats set count = {} where name = {}').format(fincount,str(message.author)))
+            #count[ind] = count[ind] + 1
+            '''if str(message.author) in top_ten_names:
                 indh = top_ten_names.index(str(message.author))
-                top_ten_count[indh] = top_ten_count[indh] + 1
+                top_ten_count[indh] = top_ten_count[indh] + 1'''
         else:
-            names.append(str(message.author))
-            count.append(1)
-
-@tasks.loop(seconds = 5)
-async def member_count_channel(channel):
-    while True: 
-        guild = client.get_guild(688009516410863647)
-        total_members = len(guild.members)
-        await channel.edit(name = 'Member Count - ' + str(total_members))
-        print('yes')     
+            c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))
+            #names.append(str(message.author))
+            #count.append(1)
+    conn.close()
+    
+async def member_count_channel(channel): 
+    guild = client.get_guild(688009516410863647)
+    total_members = len(guild.members)
+    await channel.edit(name = 'Member Count - ' + str(total_members))
+    print('yes')     
 
 '''@tasks.loop(seconds = 5)
 async def change_presence():
@@ -113,12 +133,11 @@ async def on_ready():
     thirty_percent = int((30/100)*total_members) + 1
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
+    await member_count_channel(channel = member_channel_count)
     await client.change_presence(status = discord.Status.online, activity = (game1)) 
-    member_count_channel.start()
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
-
 
 async def change_presence():
     guild = client.get_guild(688009516410863647)
@@ -130,7 +149,9 @@ async def change_presence():
 @client.event
 async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
+    member_channel_count = member.guild.get_channel(713649217054441532)
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
+    await member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
 
 
@@ -148,6 +169,7 @@ async def on_member_join(member):
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
+        await member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
@@ -246,10 +268,10 @@ async def on_message(message):
                 purge.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
                 await message.author.send(embed = purge)    
         
-        elif str(message.channel.category).lower() == 'art':
+        elif (str(message.channel.category).lower() == 'art') or (str(message.channel) in art_channels):
             if message.content.find('http') != -1:
                 await message.add_reaction('👍')
-            elif (message is discord.Attachment) or (message.type == discord.Attachment):
+            elif (message is discord.Attachment):
                 await message.add_reaction('👍')
             conti(message)
     
@@ -268,10 +290,10 @@ async def on_message(message):
         elif message.content.find('discord.gg') != -1:
             admin = discord.utils.get(message.author.roles, name = 'Admin')
             founder = discord.utils.get(message.author.roles, name = 'Founder')
-            if admin or founder:
-                pass
-            elif str(message.author) in warnings:
+            if str(message.author) in warnings:
                 await message.author.ban
+            elif admin or founder:
+                pass
             else:
                 warninv = discord.Embed(title = 'Warning! You will get banned if you invite in the server another time', description = 'Invites are banned in this Server', colour = discord.Color.red())
                 warnings.append(str(message.author))
