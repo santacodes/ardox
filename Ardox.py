@@ -230,11 +230,11 @@ async def on_raw_reaction_add(payload):
 @client.event
 async def on_message(message):
         author_roles = discord.utils.get(message.author.roles, name = 'Staff')
-        if message.content.startswith(prefix+'hi') or message.content.startswith('hi') or message.content.startswith('Hi'):
-            #await trigger_typing()
+        if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
+            if 'Staff' in message.author.roles:           #await trigger_typing()
             #time.sleep(2)
-            await message.channel.send(random.choice(hihello))
-            conti(message)
+                await message.channel.send(random.choice(hihello))
+                conti(message)
         elif (message.content.startswith(prefix+'help')):
             embed = discord.Embed(title = 'Bot Commands',
                                 description = "The default prefix is '#'",
