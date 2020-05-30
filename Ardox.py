@@ -231,7 +231,7 @@ async def on_raw_reaction_add(payload):
 async def on_message(message):
         author_roles = discord.utils.get(message.author.roles, name = 'Staff')
         if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
-            if 'Staff' in message.author.roles:           #await trigger_typing()
+            if author_roles:           #await trigger_typing()
             #time.sleep(2)
                 await message.channel.send(random.choice(hihello))
                 conti(message)
