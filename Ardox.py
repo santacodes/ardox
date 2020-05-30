@@ -118,6 +118,10 @@ async def change_presence():
     game = cycle([game1,game2])
     await client.change_presence(status = discord.Status.online, activity = (game1))'''
 
+async def change_presence(guild):
+    total_members = len(guild.members)
+    game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
+    await client.change_presence(status = discord.Status.online, activity = (game1))
 
 @client.event
 async def on_ready():
@@ -136,13 +140,6 @@ async def on_ready():
     #elif now == 120:
         #now = 0
 
-async def change_presence():
-    guild = client.get_guild(688009516410863647)
-    print(guild)
-    total_members = len(guild.members)
-    game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
-    await client.change_presence(status = discord.Status.online, activity = (game1))
-
 @client.event
 async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
@@ -150,7 +147,7 @@ async def on_member_remove(member):
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
     await member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
-
+    await change_presence(member.guild)
 
 @client.event 
 async def on_member_join(member):
@@ -166,6 +163,7 @@ async def on_member_join(member):
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
+        await change_presence(member.guild)
         await member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
