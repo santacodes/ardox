@@ -34,7 +34,10 @@ wlcmlist = ['We have waited so long to have you among us. At last, the time has 
             'The entire team of Designer\'s Club is thrilled to welcome you on board. We hope you\'ll do some amazing works here!',
             'Dear new member, I welcome you to Designer\'s Club with much love. I hope you would work for the motive of the Server as much as other members!']
 
-imgurl = ['https://i.imgur.com/lZOA6s8.jpg','https://i.imgur.com/kLHHD12.jpg','https://i.imgur.com/JYk292J.png','https://i.imgur.com/U2a6L8U.png']
+imgurl = ['https://i.imgur.com/lZOA6s8.jpg',
+'https://i.imgur.com/kLHHD12.jpg',
+'https://i.imgur.com/JYk292J.png',
+'https://i.imgur.com/U2a6L8U.png']
 
 hihello = ['Hi','Hey There!','Hello','Yo']
 
