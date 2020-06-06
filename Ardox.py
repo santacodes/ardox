@@ -255,12 +255,10 @@ async def on_message(message):
                     print(s)
                     n = int(s[1]) + 1
                     await message.channel.purge(limit = n)
-                    conti(message)
                 else:
                     noperm = discord.Embed(title = 'You Do Not have the Permission to use this command!', colour = discord.Color.red())
                     noperm.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
                     await message.channel.send(embed = noperm)
-                    conti(message)
             except:
                 purge = discord.Embed(title = 'Incorrect Usage! Argument goes like this-', description = '!clear <Number of messages>', colour = discord.Colour.red() )
                 purge.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
