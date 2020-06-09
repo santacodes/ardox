@@ -14,6 +14,8 @@ from discord import Activity
 import threading
 import sqlite3
 
+####By Santa####
+
 client = discord.Client()
 
 TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
