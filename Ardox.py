@@ -195,7 +195,7 @@ async def on_member_join(member):
             welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
             welcome.set_image(url = random.choice(imgurl))
             await channel.send(embed=welcome)
-            #await member.add_roles(verifyrole)
+            await member.add_roles(verifyrole)
 
 @client.event 
 async def on_member_ban(guild, user):
