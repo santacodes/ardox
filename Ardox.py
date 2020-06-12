@@ -211,10 +211,20 @@ async def on_member_unban(guild, user):
 @client.event
 async def on_raw_reaction_add(payload):
     print(payload)
+
     emoji = payload.emoji.name
     channelid = 689059207466582024                #verifychannelID
     user = payload.member
     verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
+    #reactionroles
+    artist = discord.utils.get(user.guild.roles, name = 'Artist')
+    photographer = discord.utils.get(user.guild.roles, name = 'Photographer')
+    vfx = discord.utils.get(user.guild.roles, name = 'VFX')
+    graphic_designer = discord.utils.get(user.guild.roles, name = 'Graphic Designer')
+    programmer = discord.utils.get(user.guild.roles, name = 'Programmer')
+    gamer = discord.utils.get(user.guild.roles, name = 'Gamer')
+    musician = discord.utils.get(user.guild.roles, name = 'Musician')
+
     if emoji == '✅' and payload.channel_id == channelid:
         await user.add_roles(verifyrole)
         await payload.message.reaction.remove(user = payload.member)
@@ -229,7 +239,22 @@ async def on_raw_reaction_add(payload):
             artf.set_image(url = link)
             artf.set_author(name = payload.reaction.message.author.mention, icon_url = payload.reaction.message.author.avatar_url)
             await art_features.send(embed = artf)
-
+    
+    elif str(payload.reaction.message.channel) == 'roles' or payload.channel_id == 698393603935830067:
+    	if emoji == '🎨':
+    		await user.add_roles(artist)
+    	elif emoji == '📷':
+    		await user.add_roles(photographer)
+    	elif emoji == '📹':
+    		await user.add_roles(VFX)
+    	elif emoji == '📐':
+    		await user.add_roles(graphic_designer)
+    	elif emoji == '🖥️':
+    		await user.add_roles(programmer)
+    	elif emoji == '🎮':
+    		await user.add_roles(gamer)
+    	elif emoji == '🎸':
+    		await user.add_roles(musician)
 
     
 @client.event
