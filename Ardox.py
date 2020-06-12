@@ -240,7 +240,8 @@ async def on_raw_reaction_add(payload):
             artf.set_author(name = payload.reaction.message.author.mention, icon_url = payload.reaction.message.author.avatar_url)
             await art_features.send(embed = artf)
     
-    elif str(payload.reaction.message.channel) == 'roles' or payload.channel_id == 698393603935830067:
+    elif (str(payload.reaction.message.channel) == 'roles') or (payload.channel_id == 698393603935830067):
+    	
     	if emoji == '🎨':
     		await user.add_roles(artist)
     	elif emoji == '📷':
