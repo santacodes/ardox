@@ -323,6 +323,27 @@ async def on_message(message):
                 warnings.append(str(message.author))
                 await message.channel.purge(limit = 1)
                 await message.author.send(embed = warninv)
+                
+        elif message.content.startswith(prefix+'kick'):
+        	if author_roles:   #argument = !kick @person reason 
+        		person = message.content[2]
+        		reason_msg = message.content[3:len(message.content)]
+        		await message.guild.kick(user = person, reason = reason_msg)
+        elif message.content.startswith(prefix+'ban'):
+        	if author_roles:
+        		person = message.content[2]
+        		reason_msg = message.content[3:len(message.content)]
+        		await message.guild.ban(user = person, reason = reason_msg)
+        elif message.content.startswith(prefix+'unban'):
+        	if author_roles:
+        		person = message.content[2]
+        		reason_msg = message.content[3:len(message.content)]
+        		await message.guild.unban(user = person, reason = reason_msg)
+        elif message.content.startswith(prefix+'changenick'):
+        	if author_roles:
+        		person = message.content[2]
+        		nickname = message.content[3:len(message.content)]
+        		await person.edit(nick = nickname)
 
         conti(message)
         print(names,count)
