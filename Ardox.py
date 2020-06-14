@@ -264,7 +264,7 @@ async def on_message(message):
             if author_roles:           #await trigger_typing()
             #time.sleep(2)
                 await message.channel.send(random.choice(hihello))
-                conti(message)
+                #conti(message)
         elif (message.content.startswith(prefix+'help')):
             embed = discord.Embed(title = 'Bot Commands',
                                 description = "The default prefix is '#'",
@@ -296,14 +296,14 @@ async def on_message(message):
                 await message.add_reaction('👍')
             elif (message is discord.Attachment):
                 await message.add_reaction('👍')
-            conti(message)
+            #conti(message)
     
         elif message.content.startswith(prefix+'stats'):
             stats = discord.Embed(title = 'Coming Soon...', description = 'This feature is in development and will be added soon :)') 
             stats.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
             await message.channel.send(embed = stats)
-            conti(message)
-            statistics(message)
+            #conti(message)
+            #statistics(message)
             pic = discord.File('stats.png','stats.png')
             #await message.channel.send('stats.png',file = pic)
         
