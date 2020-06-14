@@ -344,7 +344,7 @@ async def on_message(message):
         		nickname = message.content[3:len(message.content)]
         		await person.edit(nick = nickname)
 
-        conti(message)
+        #conti(message)
 
 
 '''@client.event
