@@ -88,7 +88,7 @@ def statistics(message):
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
     
 
-def conti(message):
+'''def conti(message):
     c.execute('select name from stats')
     names = c.fetchall()
     c.execute('select count from stats')
@@ -101,11 +101,11 @@ def conti(message):
             fincount = initcount + 1
             c.execute(('update stats set count = {} where name = {}').format(fincount,str(message.author)))
             #count[ind] = count[ind] + 1
-            '''if str(message.author) in top_ten_names:
+            if str(message.author) in top_ten_names:
                 indh = top_ten_names.index(str(message.author))
-                top_ten_count[indh] = top_ten_count[indh] + 1'''
+                top_ten_count[indh] = top_ten_count[indh] + 1
         else:
-            c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))
+            c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))'''
             #names.append(str(message.author))
             #count.append(1)
     
