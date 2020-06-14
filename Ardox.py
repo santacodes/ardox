@@ -324,24 +324,24 @@ async def on_message(message):
                 await message.author.send(embed = warninv)
                 
         elif message.content.startswith(prefix+'kick'):
-        	if author_roles:   #argument = !kick @person reason 
+        	if author_roles == 'Staff':   #argument = !kick @person reason 
         		person = message.content[1]
         		reason_msg = message.content[2:len(message.content)]
         		print(person)
         		print(reason_msg)
         		await message.guild.kick(user = person, reason = reason_msg)
         elif message.content.startswith(prefix+'ban'):
-        	if author_roles:
+        	if author_roles == 'Staff':
         		person = message.content[1]
         		reason_msg = message.content[2:len(message.content)]
         		await message.guild.ban(user = person, reason = reason_msg)
         elif message.content.startswith(prefix+'unban'):
-        	if author_roles:
+        	if author_roles == 'Staff':
         		person = message.content[1]
         		reason_msg = message.content[2:len(message.content)]
         		await message.guild.unban(user = person, reason = reason_msg)
         elif message.content.startswith(prefix+'changenick'):
-        	if author_roles:
+        	if author_roles == 'Staff':
         		person = message.content[1]
         		nickname = message.content[2:len(message.content)]
         		await person.edit(nick = nickname)
