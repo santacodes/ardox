@@ -324,6 +324,7 @@ async def on_message(message):
                 await message.author.send(embed = warninv)
                 
         elif message.content.startswith(prefix+'kick'):
+        	print(message.content)
         	if author_roles == 'Staff':   #argument = !kick @person reason 
         		person = message.content[1]
         		reason_msg = message.content[2:len(message.content)]
