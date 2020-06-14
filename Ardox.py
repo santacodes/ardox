@@ -240,8 +240,7 @@ async def on_raw_reaction_add(payload):
             artf.set_author(name = payload.reaction.message.author.mention, icon_url = payload.reaction.message.author.avatar_url)
             await art_features.send(embed = artf)
     
-    elif (str(payload.reaction.message.channel) == 'roles') or (payload.channel_id == 698393603935830067):
-    	
+    elif (payload.channel_id == 698393603935830067):
     	if emoji == '🎨':
     		await user.add_roles(artist)
     	elif emoji == '📷':
@@ -346,8 +345,6 @@ async def on_message(message):
         		await person.edit(nick = nickname)
 
         conti(message)
-        print(names,count)
-        print(top_ten_names,top_ten_count)
 
 
 '''@client.event
