@@ -327,6 +327,8 @@ async def on_message(message):
         	if author_roles:   #argument = !kick @person reason 
         		person = message.content[2]
         		reason_msg = message.content[3:len(message.content)]
+        		print(person)
+        		print(reason_msg)
         		await message.guild.kick(user = person, reason = reason_msg)
         elif message.content.startswith(prefix+'ban'):
         	if author_roles:
