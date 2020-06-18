@@ -24,9 +24,11 @@ prefix = '#'
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
-conn = sqlite3.connect('stats.db')
-c = conn.cursor()
+#conn = sqlite3.connect('stats.db')
+#c = conn.cursor()
 
+guild = client.get_guild(688009516410863647)
+mod_logs_channel = guild.get_channel(713074242543157388)
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
             'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
@@ -68,10 +70,10 @@ count = []
 verifyrole = ''
 
 def statistics(message):
-    c.execute('select name from stats')
-    names = c.fetchall()
-    c.execute('select count from stats')
-    count = c.fetchall()
+    #c.execute('select name from stats')
+    #names = c.fetchall()
+    #c.execute('select count from stats')
+    #count = c.fetchall()
     for no in count:
         for na in top_ten_count:
             if no > na and (names[count.index(no)] not in top_ten_names):
@@ -87,6 +89,12 @@ def statistics(message):
                 plt.ylabel('UserID')
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
     
+def warning(warned_user):
+    global mod_logs_channel
+    warning_file = open(file = 'warnings.txt', mode = 'w')
+    warning_file.write(warned_user)
+    warning_embed = discord.Embed(title = 'Warned ' + warned_user, colour = discord.Color.red())
+    await mod_logs_channel.send(embed = warning_embed)
 
 '''def conti(message):
     c.execute('select name from stats')
@@ -320,15 +328,16 @@ async def on_message(message):
         elif message.content.find('discord.gg') != -1:
             admin = discord.utils.get(message.author.roles, name = 'Admin')
             founder = discord.utils.get(message.author.roles, name = 'Founder')
-            if str(message.author) in warnings:
-                await message.author.ban
-            elif admin or founder:
-                pass
-            else:
-                warninv = discord.Embed(title = 'Warning! You will get banned if you invite in the server another time', description = 'Invites are banned in this Server', colour = discord.Color.red())
-                warnings.append(str(message.author))
-                await message.channel.purge(limit = 1)
-                await message.author.send(embed = warninv)
+            with open(file = 'warnings.txt', mode = 'r') as f:
+                if str(message.author) in f.read():
+                    await message.author.ban
+                elif admin or founder:
+                    pass
+                else:
+                    warninv = discord.Embed(title = 'Warning! You will get banned if you invite in the server another time', description = 'Invites are banned in this Server', colour = discord.Color.red())
+                    await message.channel.purge(limit = 1)
+                    await message.author.send(embed = warninv)
+                    warning(warned_user = str(message.author))
                 
         elif message.content.startswith(prefix+'kick'):
         	print(message.content)
