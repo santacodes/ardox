@@ -89,7 +89,7 @@ def statistics(message):
                 plt.ylabel('UserID')
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
     
-def warning(warned_user):
+async def warning(warned_user):
     global mod_logs_channel
     warning_file = open(file = 'warnings.txt', mode = 'w')
     warning_file.write(warned_user)
