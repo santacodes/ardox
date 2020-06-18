@@ -27,9 +27,6 @@ channels = ['bot-commands']
 #conn = sqlite3.connect('stats.db')
 #c = conn.cursor()
 
-guild = client.get_guild(688009516410863647)
-mod_logs_channel = guild.get_channel(713074242543157388)
-
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
             'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
             'The times we spend with you is always so full of joy and happiness. Knowing that you\'ll be with us, brings the smile on our face. Welcome to our Server!',
@@ -89,8 +86,8 @@ def statistics(message):
                 plt.ylabel('UserID')
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
     
-async def warning(warned_user):
-    global mod_logs_channel
+async def warning(warned_user,guild):
+    mod_logs_channel = guild.get_channel(713074242543157388)
     warning_file = open(file = 'warnings.txt', mode = 'w')
     warning_file.write(warned_user)
     warning_embed = discord.Embed(title = 'Warned ' + warned_user, colour = discord.Color.red())
@@ -148,6 +145,7 @@ async def on_ready():
     print("Ready!")
     global thirty_percent
     guild = client.get_guild(688009516410863647)
+    mod_logs_channel = guild.get_channel(713074242543157388)
     print(guild)
     total_members = len(guild.members)
     print(total_members)
@@ -337,8 +335,10 @@ async def on_message(message):
                     warninv = discord.Embed(title = 'Warning! You will get banned if you invite in the server another time', description = 'Invites are banned in this Server', colour = discord.Color.red())
                     await message.channel.purge(limit = 1)
                     await message.author.send(embed = warninv)
-                    warning(warned_user = str(message.author))
-                
+                    warning(warned_user = str(message.author), guild = message.guild)
+         
+    
+
         elif message.content.startswith(prefix+'kick'):
         	print(message.content)
         	if author_roles == 'Staff':   #argument = !kick @person reason 
