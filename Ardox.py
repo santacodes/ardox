@@ -112,9 +112,16 @@ def statistics(message):
     
 async def member_count_channel(channel): 
     guild = client.get_guild(688009516410863647)
-    total_members = len(guild.members)
-    await channel.edit(name = 'Member Count - ' + str(total_members))
-    print('yes')     
+    user_count_channel = guild.get_channel(723133466333544519)
+    bot_count_channel = guild.get_channel(723133552392142938)
+    members = guild.members 
+    total_member_count = len(members)
+    users = [member for member in members if not member.bot] 
+    bots = [member for member in members if member.bot]
+    await channel.edit(name = 'Total Member Count - ' + str(total_members))
+    await user_count_channel.edit(name = 'User Count - ' + str(len(users)))
+    await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
+    print('server stats updated!')     
 
 '''@tasks.loop(seconds = 5)
 async def change_presence():
@@ -246,7 +253,7 @@ async def on_raw_reaction_add(payload):
     	elif emoji == '📷':
     		await user.add_roles(photographer)
     	elif emoji == '📹':
-    		await user.add_roles(VFX)
+    		await user.add_roles(vfx)
     	elif emoji == '📐':
     		await user.add_roles(graphic_designer)
     	elif emoji == '🖥️':
