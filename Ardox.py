@@ -142,9 +142,7 @@ async def change_presence(guild):
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
 
-@client.command()
-async def kick(ctx, member : discord.Member, *, reason = None):
-    await member.kick(reason = reason)
+
 
 
 @client.event
@@ -164,6 +162,10 @@ async def on_ready():
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
+
+@client.command()
+async def kick(ctx,member : discord.Member,*,reason = None):
+    await member.kick(reason = reason)
 
 @client.event
 async def on_member_remove(member):
@@ -279,7 +281,7 @@ async def on_raw_reaction_add(payload):
     
 @client.event
 async def on_message(message):
-        author_roles = discord.utils.get(message.author.roles, name = 'Staff')
+    author_roles = discord.utils.get(message.author.roles, name = 'Staff')
         if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
             if author_roles:           #await trigger_typing()
             #time.sleep(2)
@@ -370,7 +372,7 @@ async def on_message(message):
         		person = message.content[1]
         		nickname = message.content[2:len(message.content)]
         		await person.edit(nick = nickname)
-
+    await client.process_commands(message)
         #conti(message)
 
 
