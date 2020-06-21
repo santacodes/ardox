@@ -26,6 +26,8 @@ TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
+premium_user_roles = ['Founder','Admin','Moderator'] 
+
 #conn = sqlite3.connect('stats.db')
 #c = conn.cursor()
 
@@ -165,11 +167,17 @@ async def on_ready():
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
-    await member.kick(reason = reason)
-
+    if ctx.author.top_role in premium_user_roles: await member.kick(reason = reason)
+    mod_logs_channel = ctx.guild.get_channel(713074242543157388)
+    kick_embed = discord.Embed(title = str(member) + 'Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
+    ctx.message.channel.send(embed = embed)
+    
 @client.command()
 async def ban(ctx,member : discord.Member,*,reason = None):
-    await member.ban(reason = reason)
+    for role in ctx.guild.roles:
+        if role in premium_user_roles:
+            await member.ban(reason = reason)
+            break
 
 
 @client.event
