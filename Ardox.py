@@ -142,6 +142,11 @@ async def change_presence(guild):
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
 
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason = None):
+    await member.kick(reason = reason)
+
+
 @client.event
 async def on_ready():
     print("Ready!")
@@ -367,10 +372,6 @@ async def on_message(message):
         		await person.edit(nick = nickname)
 
         #conti(message)
-
-@client.command()
-async def kick(ctx, member:discord.Member, *, reason = None):
-    await member.kick(reason = reason)
 
 
 '''@client.event
