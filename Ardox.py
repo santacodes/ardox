@@ -170,8 +170,8 @@ async def kick(ctx,member : discord.Member,*,reason = None):
     if ctx.author.top_role in premium_user_roles: await member.kick(reason = reason)
     mod_logs_channel = ctx.guild.get_channel(713074242543157388)
     kick_embed = discord.Embed(title = str(member) + 'Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
-    ctx.message.channel.send(embed = embed)
-    
+    ctx.message.channel.send(embed = kick_embed)
+
 @client.command()
 async def ban(ctx,member : discord.Member,*,reason = None):
     for role in ctx.guild.roles:
