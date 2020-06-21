@@ -167,11 +167,16 @@ async def on_ready():
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
-    if ctx.message.author.top_role in premium_user_roles: 
-        await member.kick(reason = reason)
-        mod_logs_channel = ctx.guild.get_channel(713074242543157388)
-        kick_embed = discord.Embed(title = str(member) + 'Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
-        await mod_logs_channel.send(embed = kick_embed)
+    author = str(ctx.author)
+    roles = ctx.guild.roles
+    for role in roles:
+        if str(role) in premium_user_roles:
+            if author in role.members:
+                await member.kick(reason = reason)
+                mod_logs_channel = ctx.guild.get_channel(713074242543157388)
+                kick_embed = discord.Embed(title = str(member) + 'Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
+                await mod_logs_channel.send(embed = kick_embed)
+                break 
 
 @client.command()
 async def ban(ctx,member : discord.Member,*,reason = None):
@@ -243,7 +248,7 @@ async def on_member_ban(guild, user):
 async def on_member_unban(guild, user):
     mod_logs = user.guild.get_channel(713074242543157388)
     unban_embed = discord.Embed(title = user.name + ' Just got Unbanned', colour = discord.Color.dark_magenta())
-
+    await mod_logs.send(embed = unban_embed)
 @client.event
 async def on_raw_reaction_add(payload):
     print(payload)
