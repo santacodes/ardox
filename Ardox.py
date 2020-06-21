@@ -9,11 +9,10 @@ from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 from itertools import cycle
-from discord.ext import tasks
+from discord.ext import tasks, commands
 from discord import Activity
 import threading
 import sqlite3
-from discord.ext import commands
 
 ####By Santa####
 
@@ -132,19 +131,17 @@ async def member_count_channel(channel):
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
     print('server stats updated!')     
 
-'''@tasks.loop(seconds = 5)
+@tasks.loop(seconds = 5)
 async def change_presence():
     game1 = discord.Activity(name = str(total_members)+" Designers and !help",type = discord.ActivityType.watching)
     game2 = discord.Activity(name = prefix+"help", type = discord.ActivityType.listening)
     game = cycle([game1,game2])
-    await client.change_presence(status = discord.Status.online, activity = (game1))'''
-
-async def change_presence(guild):
-    total_members = len(guild.members)
-    game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
 
-
+'''async def change_presence(guild):
+    total_members = len(guild.members)
+    game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
+    await client.change_presence(status = discord.Status.online, activity = (game1))'''
 
 
 @client.event
@@ -160,7 +157,9 @@ async def on_ready():
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
     await member_count_channel(channel = member_channel_count)
-    await client.change_presence(status = discord.Status.online, activity = (game1)) 
+    await change_presence.start()
+    
+    #await client.change_presence(status = discord.Status.online, activity = (game1)) 
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
@@ -181,7 +180,6 @@ async def ban(ctx,member : discord.Member,*,reason = None):
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         ban_embed = discord.Embed(title = str(member) + 'Got banned due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = ban_embed)
-            
 
 @client.event
 async def on_member_remove(member):
@@ -190,7 +188,7 @@ async def on_member_remove(member):
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
     await member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
-    await change_presence(member.guild)
+    #await change_presence(member.guild)
 
 @client.event 
 async def on_member_join(member):
@@ -206,7 +204,7 @@ async def on_member_join(member):
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
-        await change_presence(member.guild)
+        #await change_presence(member.guild)
         await member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
