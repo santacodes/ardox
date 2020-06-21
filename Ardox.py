@@ -172,7 +172,7 @@ async def kick(ctx,member : discord.Member,*,reason = None):
     if str(ctx.author) in premium_users:
         await member.kick(reason = reason)
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
-        kick_embed = discord.Embed(title = str(member) + 'Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
+        kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = kick_embed)
             
 
@@ -181,7 +181,7 @@ async def ban(ctx,member : discord.Member,*,reason = None):
     if str(ctx.author) in premium_users:
         await member.ban(reason = reason)
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
-        ban_embed = discord.Embed(title = str(member) + 'Got banned due to the following reason - ' + reason, colour = discord.Color.red())
+        ban_embed = discord.Embed(title = str(member) + ' Got banned due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = ban_embed)
 
 @client.event
