@@ -281,7 +281,8 @@ async def on_raw_reaction_add(payload):
     
 @client.event
 async def on_message(message):
-    author_roles = discord.utils.get(message.author.roles, name = 'Staff')
+        author_roles = discord.utils.get(message.author.roles, name = 'Staff')
+        await client.process_commands(message)
         if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
             if author_roles:           #await trigger_typing()
             #time.sleep(2)
@@ -372,7 +373,7 @@ async def on_message(message):
         		person = message.content[1]
         		nickname = message.content[2:len(message.content)]
         		await person.edit(nick = nickname)
-    await client.process_commands(message)
+       
         #conti(message)
 
 
