@@ -131,21 +131,16 @@ async def member_count_channel(channel):
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
     print('server stats updated!')     
 
+guild = client.get_guild(688009516410863647)
+game1 = discord.Activity(name = str(len(guild.members))+" Designers",type = discord.ActivityType.watching)
+game2 = discord.Activity(name = prefix + "help", type = discord.ActivityType.listening)
+game = cycle([game1,game2])
 
 @tasks.loop(seconds = 5)
 async def change_presence():
-    guild = client.get_guild(688009516410863647)
-    present_activity = 'game1'
-    game1 = discord.Activity(name = str(len(guild.members))+" Designers",type = discord.ActivityType.watching)
-    game2 = discord.Activity(name = prefix + "help", type = discord.ActivityType.listening)
-    #game = cycle([game1,game2])
-    game = game1
-    if present_activity == 'game1':
-        await client.change_presence(status = discord.Status.online, activity = game2)
-        present_activity = 'game2'
-    else:
-        await client.change_presence(status = discord.Status.online, activity = game1)
-        present_activity = 'game1'
+
+    act = next(game)
+    await client.change_presence(status = discord.Status.online, activity = act)
 
 '''async def change_presence(guild):
     total_members = len(guild.members)
