@@ -13,14 +13,16 @@ from discord.ext import tasks
 from discord import Activity
 import threading
 import sqlite3
+from discord.ext import commands
 
 ####By Santa####
 
-client = discord.Client()
+prefix = '#'
+
+client = commands.Bot(command_prefix = prefix)
 
 TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
 
-prefix = '#'
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
@@ -337,7 +339,8 @@ async def on_message(message):
                     await message.author.send(embed = warninv)
                     warning(warned_user = str(message.author), guild = message.guild)
          
-    
+        elif message.content.startswith(prefix + 'warn'):
+            pass
 
         elif message.content.startswith(prefix+'kick'):
         	print(message.content)
@@ -364,6 +367,10 @@ async def on_message(message):
         		await person.edit(nick = nickname)
 
         #conti(message)
+
+@client.command()
+async def kick(ctx, *, member:discord.Member, reason = None):
+    await member.kick(reason = reason)
 
 
 '''@client.event
