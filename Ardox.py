@@ -167,6 +167,11 @@ async def on_ready():
 async def kick(ctx,member : discord.Member,*,reason = None):
     await member.kick(reason = reason)
 
+@client.command()
+async def ban(ctx,member : discord.Member,*,reason = None):
+    await member.ban(reason = reason)
+
+
 @client.event
 async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
