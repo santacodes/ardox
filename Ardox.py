@@ -369,7 +369,7 @@ async def on_message(message):
         #conti(message)
 
 @client.command()
-async def kick(ctx, *, member:discord.Member, reason = None):
+async def kick(ctx, member:discord.Member, *, reason = None):
     await member.kick(reason = reason)
 
 
