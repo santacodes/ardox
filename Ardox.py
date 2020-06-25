@@ -122,13 +122,19 @@ async def member_count_channel(channel):
     guild = client.get_guild(688009516410863647)
     user_count_channel = guild.get_channel(723133466333544519)
     bot_count_channel = guild.get_channel(723133552392142938)
+    online_count_channel = guild.get_channel(725622641716887583)
+    offline_count_channel = guild.get_channel(725622712034263042)
     members = guild.members 
     total_member_count = len(members)
     users = [member for member in members if not member.bot] 
     bots = [member for member in members if member.bot]
+    online = [member for member in members if member.status != 'offline']
+    offline = [member for member in members if member.status == 'offline']
     await channel.edit(name = 'Total Member Count - ' + str(len(guild.members)))
     await user_count_channel.edit(name = 'User Count - ' + str(len(users)))
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
+    await online_count_channel.edit(name = 'Online - ' + str(len(online)))
+    await online_count_channel.edit(name = 'Offline - ' + str(len(offline)))
     print('server stats updated!')     
 
 
@@ -166,6 +172,10 @@ async def on_ready():
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
+
+@client.command()
+async def wotm(ctx, member : discord.Member, *):
+    pass 
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
