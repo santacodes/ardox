@@ -88,13 +88,17 @@ def statistics(message):
                 plt.xlabel('Messages')
                 plt.ylabel('UserID')
                 plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
-    
+
+
+
 async def warning(warned_user,guild):
     mod_logs_channel = guild.get_channel(713074242543157388)
     warning_file = open(file = 'warnings.txt', mode = 'w')
     warning_file.write(warned_user)
     warning_embed = discord.Embed(title = 'Warned ' + warned_user, colour = discord.Color.red())
     await mod_logs_channel.send(embed = warning_embed)
+
+
 
 '''def conti(message):
     c.execute('select name from stats')
@@ -117,7 +121,7 @@ async def warning(warned_user,guild):
             #names.append(str(message.author))
             #count.append(1)
     
-@tasks.loop(seconds = 5)    
+    
 async def member_count_channel(channel): 
     guild = client.get_guild(688009516410863647)
     user_count_channel = guild.get_channel(723133466333544519)
@@ -152,6 +156,9 @@ async def change_presence():
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))'''
 
+@tasks.loop(seconds = 5)
+async def loop(): 
+    await member_count_channel(channel = member_channel_count)
 
 @client.event
 async def on_ready():
@@ -165,8 +172,9 @@ async def on_ready():
     thirty_percent = int((30/100)*total_members) + 1
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
-    await member_count_channel(channel = member_channel_count).start()
+    #await member_count_channel(channel = member_channel_count)
     await change_presence.start()
+    await loop.start()
     
     #await client.change_presence(status = discord.Status.online, activity = (game1)) 
     #await client.change_presence(status = discord.Status.online, activity = next(game))
@@ -373,35 +381,9 @@ async def on_message(message):
                     await message.channel.purge(limit = 1)
                     await message.author.send(embed = warninv)
                     warning(warned_user = str(message.author), guild = message.guild)
-         
-        elif message.content.startswith(prefix + 'warn'):
-            pass
 
-        elif message.content.startswith(prefix+'kick'):
-        	print(message.content)
-        	if author_roles == 'Staff':   #argument = !kick @person reason 
-        		person = message.content[1]
-        		reason_msg = message.content[2:len(message.content)]
-        		print(person)
-        		print(reason_msg)
-        		await message.guild.kick(user = person, reason = reason_msg)
-        elif message.content.startswith(prefix+'ban'):
-        	if author_roles == 'Staff':
-        		person = message.content[1]
-        		reason_msg = message.content[2:len(message.content)]
-        		await message.guild.ban(user = person, reason = reason_msg)
-        elif message.content.startswith(prefix+'unban'):
-        	if author_roles == 'Staff':
-        		person = message.content[1]
-        		reason_msg = message.content[2:len(message.content)]
-        		await message.guild.unban(user = person, reason = reason_msg)
-        elif message.content.startswith(prefix+'changenick'):
-        	if author_roles == 'Staff':
-        		person = message.content[1]
-        		nickname = message.content[2:len(message.content)]
-        		await person.edit(nick = nickname)
-       
         #conti(message)
+
 
 
 '''@client.event
