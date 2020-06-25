@@ -134,7 +134,7 @@ async def member_count_channel(channel):
     await user_count_channel.edit(name = 'User Count - ' + str(len(users)))
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
     await online_count_channel.edit(name = 'Online - ' + str(len(online)))
-    await online_count_channel.edit(name = 'Offline - ' + str(len(offline)))
+    await offline_count_channel.edit(name = 'Offline - ' + str(len(offline)))
     print('server stats updated!')     
 
 
