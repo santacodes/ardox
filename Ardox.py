@@ -155,10 +155,10 @@ async def change_presence():
     total_members = len(guild.members)
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))'''
-
+mcc = [] 
 @tasks.loop(seconds = 5)
 async def loop(): 
-    await member_count_channel(channel = member_channel_count)
+    await member_count_channel(channel = mcc[1])
 
 @client.event
 async def on_ready():
@@ -166,6 +166,7 @@ async def on_ready():
     global thirty_percent
     guild = client.get_guild(688009516410863647)
     mod_logs_channel = guild.get_channel(713074242543157388)
+    mcc.append(mod_logs_channel)
     print(guild)
     total_members = len(guild.members)
     print(total_members)
