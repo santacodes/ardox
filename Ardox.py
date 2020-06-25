@@ -128,8 +128,8 @@ async def member_count_channel(channel):
     total_member_count = len(members)
     users = [member for member in members if not member.bot] 
     bots = [member for member in members if member.bot]
-    online = [member for member in members if member.status != 'offline']
-    offline = [member for member in members if member.status == 'offline']
+    online = [member for member in members if str(member.status) != 'offline']
+    offline = [member for member in members if str(member.status) == 'offline']
     await channel.edit(name = 'Total Member Count - ' + str(len(guild.members)))
     await user_count_channel.edit(name = 'User Count - ' + str(len(users)))
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
