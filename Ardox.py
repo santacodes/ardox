@@ -174,7 +174,7 @@ async def on_ready():
         #now = 0
 
 @client.command()
-async def wotm(ctx, member : discord.Member, *):
+async def wotm(ctx, member : discord.Member, role : discord.Role, *, additional_message):
     pass 
 
 @client.command()
