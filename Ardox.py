@@ -117,7 +117,7 @@ async def warning(warned_user,guild):
             #names.append(str(message.author))
             #count.append(1)
     
-    
+@tasks.loop(seconds = 5)    
 async def member_count_channel(channel): 
     guild = client.get_guild(688009516410863647)
     user_count_channel = guild.get_channel(723133466333544519)
@@ -165,7 +165,7 @@ async def on_ready():
     thirty_percent = int((30/100)*total_members) + 1
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
-    await member_count_channel(channel = member_channel_count)
+    await member_count_channel(channel = member_channel_count).start()
     await change_presence.start()
     
     #await client.change_presence(status = discord.Status.online, activity = (game1)) 
@@ -199,7 +199,7 @@ async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
     member_channel_count = member.guild.get_channel(713649217054441532)
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
-    await member_count_channel(channel = member_channel_count)
+    #await member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
     #await change_presence(member.guild)
 
@@ -218,7 +218,7 @@ async def on_member_join(member):
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
         #await change_presence(member.guild)
-        await member_count_channel(channel = member_channel_count)
+        #await member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
