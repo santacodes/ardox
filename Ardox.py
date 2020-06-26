@@ -69,11 +69,11 @@ count = []
 
 verifyrole = ''
 
-def check_staff(CTX, string_author):
+def check_staff(CTX, author):
     founder_role = CTX.guild.get_role(698172682276962386)
     admin_role = CTX.guild.get_role(698172766456905758)
     moderator_role = CTX.guild.get_role(709623320319885334)
-    if (string_author in founder_role.members) or (string_author in admin_role.members) or (string_author in moderator_role.members):
+    if (author in founder_role.members) or (author in admin_role.members) or (author in moderator_role.members):
         return True
 
 
@@ -199,7 +199,7 @@ async def wotm(ctx, member : discord.Member, role : discord.Role, *, additional_
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
-    if check_staff(CTX = ctx, string_author = str(ctx.message.author)):
+    if check_staff(CTX = ctx, string_author = ctx.message.author):
         await member.kick(reason = reason)
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
