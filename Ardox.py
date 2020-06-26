@@ -205,7 +205,6 @@ async def kick(ctx,member : discord.Member,*,reason = None):
         kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = kick_embed)
             
-
 @client.command()
 async def ban(ctx,member : discord.Member,*,reason = None):
     if check_staff(ctx, ctx.message.author):
@@ -213,6 +212,14 @@ async def ban(ctx,member : discord.Member,*,reason = None):
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         ban_embed = discord.Embed(title = str(member) + ' Got banned due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = ban_embed)
+
+@client.command()
+async def role(ctx, member : discord.Member, r : discord.Message, *, reason = None):
+    mod_logs_channel = ctx.guild.get_channel(713074242543157388)
+    for role in ctx.guild.roles:
+        if str(role) == r.content:
+            await member.add_roles(role)
+    
 
 @client.event
 async def on_member_remove(member):
