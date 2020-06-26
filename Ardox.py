@@ -69,6 +69,14 @@ count = []
 
 verifyrole = ''
 
+def check_staff(CTX, string_author):
+    founder_role = CTX.guild.get_role(698172682276962386)
+    admin_role = CTX.guild.get_role(698172766456905758)
+    moderator_role = CTX.guild.get_role(709623320319885334)
+    if (string_author in founder_role.members) or (string_author in admin_role.members) or (string_author in moderator_role.members):
+        return True
+
+
 def statistics(message):
     #c.execute('select name from stats')
     #names = c.fetchall()
@@ -184,11 +192,14 @@ async def on_ready():
 
 @client.command()
 async def wotm(ctx, member : discord.Member, role : discord.Role, *, additional_message):
-    pass 
+    announcement_channel = ctx.guild.get_channel(709363709754998795)
+    wotm_embed = discord.Embed(title = 'Winner Of The Month', description = additional_message)
+    winner_role = ctx.guild.get_role(725651482963083296)
+    await member.add_roles(winner_role)
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
-    if str(ctx.author) in premium_users:
+    if check_staff(CTX = ctx, string_author = str(ctx.message.author)):
         await member.kick(reason = reason)
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
