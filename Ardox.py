@@ -214,11 +214,10 @@ async def ban(ctx,member : discord.Member,*,reason = None):
         await mod_logs_channel.send(embed = ban_embed)
 
 @client.command()
-async def role(ctx, member : discord.Member, r : discord.Message, *, reason = None):
+async def role(ctx, member : discord.Member, r, *, reason = None):
     mod_logs_channel = ctx.guild.get_channel(713074242543157388)
-    for role in ctx.guild.roles:
-        if str(role) == r.content:
-            await member.add_roles(role)
+    role = discord.utils.get(ctx.guild.roles, name = ctx.message.content[2])
+    await member.add_roles(role)
     
 
 @client.event
