@@ -208,7 +208,7 @@ async def kick(ctx,member : discord.Member,*,reason = None):
 
 @client.command()
 async def ban(ctx,member : discord.Member,*,reason = None):
-    if str(ctx.author) in premium_users:
+    if check_staff(ctx, ctx.message.author):
         await member.ban(reason = reason)
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         ban_embed = discord.Embed(title = str(member) + ' Got banned due to the following reason - ' + reason, colour = discord.Color.red())
