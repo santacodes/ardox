@@ -199,7 +199,7 @@ async def wotm(ctx, member : discord.Member, role : discord.Role, *, additional_
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
-    if check_staff(CTX = ctx, string_author = ctx.message.author):
+    if check_staff(CTX = ctx, author = ctx.message.author):
         await member.kick(reason = reason)
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
