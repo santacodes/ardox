@@ -150,7 +150,7 @@ async def member_count_channel(channel):
     print('server stats updated!')     
 
 
-@tasks.loop(seconds = 25)
+
 async def change_presence():
     guild = client.get_guild(688009516410863647)
     game1 = discord.Activity(name = str(len(guild.members))+" Designers",type = discord.ActivityType.watching)
@@ -163,10 +163,6 @@ async def change_presence():
     total_members = len(guild.members)
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))'''
-mcc = [] 
-@tasks.loop(seconds = 5)
-async def loop(): 
-    await member_count_channel(channel = mcc[1])
 
 @client.event
 async def on_ready():
@@ -174,16 +170,14 @@ async def on_ready():
     global thirty_percent
     guild = client.get_guild(688009516410863647)
     mod_logs_channel = guild.get_channel(713074242543157388)
-    mcc.append(mod_logs_channel)
     print(guild)
     total_members = len(guild.members)
     print(total_members)
     thirty_percent = int((30/100)*total_members) + 1
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
-    #await member_count_channel(channel = member_channel_count)
-    await change_presence.start()
-    await loop.start()
+    await member_count_channel(channel = member_channel_count)
+    await change_presence()
     
     #await client.change_presence(status = discord.Status.online, activity = (game1)) 
     #await client.change_presence(status = discord.Status.online, activity = next(game))
@@ -225,9 +219,9 @@ async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
     member_channel_count = member.guild.get_channel(713649217054441532)
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
-    #await member_count_channel(channel = member_channel_count)
+    await member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
-    #await change_presence(member.guild)
+    await change_presence()
 
 @client.event 
 async def on_member_join(member):
@@ -243,8 +237,8 @@ async def on_member_join(member):
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
-        #await change_presence(member.guild)
-        #await member_count_channel(channel = member_channel_count)
+        await change_presence()
+        await member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
@@ -334,8 +328,10 @@ async def on_raw_reaction_add(payload):
     
 @client.event
 async def on_message(message):
+        member_channel_count = message.guild.get_channel(713649217054441532)
         author_roles = discord.utils.get(message.author.roles, name = 'Staff')
         await client.process_commands(message)
+        await member_count_channel(channel = member_channel_count)
         if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
             if author_roles:           #await trigger_typing()
             #time.sleep(2)
