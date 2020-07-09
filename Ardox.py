@@ -296,7 +296,7 @@ async def on_raw_reaction_add(payload):
 
     if emoji == '✅' and payload.channel_id == channelid:
         await user.add_roles(verifyrole)
-        await payload.message.reaction.remove(user = payload.member)
+        await payload.reaction.remove(user = payload.member)
         print('yes')
     elif emoji == '👍' and emoji.count == thirty_percent:
         if (str(payload.reaction.message.channel) in art_channels):
