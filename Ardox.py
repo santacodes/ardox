@@ -7,7 +7,7 @@ from discord import embeds
 import time 
 from datetime import datetime
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from itertools import cycle
 from discord.ext import tasks, commands
 from discord import Activity
@@ -77,7 +77,7 @@ def check_staff(CTX, author):
         return True
 
 
-def statistics(message):
+'''def statistics(message):
     #c.execute('select name from stats')
     #names = c.fetchall()
     #c.execute('select count from stats')
@@ -95,7 +95,7 @@ def statistics(message):
                 plt.yticks(y_pos,top_ten_names)
                 plt.xlabel('Messages')
                 plt.ylabel('UserID')
-                plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
+                plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')'''
 
 
 
