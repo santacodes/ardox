@@ -329,11 +329,11 @@ async def on_raw_reaction_add(payload):
 @client.event
 async def on_message(message):
         member_channel_count = message.guild.get_channel(713649217054441532)
-        author_roles = discord.utils.get(message.author.roles, name = 'Staff')
+        print(f'{message.author} >>> {message.content}')
         await client.process_commands(message)
         await member_count_channel(channel = member_channel_count)
         if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
-            if author_roles:           #await trigger_typing()
+            if check_staff(message, message.author):           #await trigger_typing()
             #time.sleep(2)
                 await message.channel.send(random.choice(hihello))
                 #conti(message)
@@ -349,7 +349,7 @@ async def on_message(message):
             
         elif message.content.startswith(prefix+'clear'): 
             try:
-                if author_roles:
+                if check_staff(message, message.author):
                     s = message.content.split()
                     print(s)
                     n = int(s[1]) + 1
