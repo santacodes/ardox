@@ -1,10 +1,10 @@
-import discord 
+i import discord
 import os
 import sys
 from discord.utils import get
 import random
 from discord import embeds
-import time 
+import time
 from datetime import datetime
 import numpy as np
 #import matplotlib.pyplot as plt
@@ -25,18 +25,18 @@ TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
-premium_users = ['Santanic#9938','pRonak#8387'] 
+premium_users = ['Santanic#9938','pRonak#8387']
 
 #conn = sqlite3.connect('stats.db')
 #c = conn.cursor()
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
-            'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
-            'The times we spend with you is always so full of joy and happiness. Knowing that you\'ll be with us, brings the smile on our face. Welcome to our Server!',
-            "The entire team of Designer's Club is honored to welcome you on board. Enjoy the facilities here and make sure your talents are fully utilized!",
-            'We are delighted to have you among us. On behalf of all the members and the management, we would like to extend our warmest welcome and good wishes!',
-            'The entire team of Designer\'s Club is thrilled to welcome you on board. We hope you\'ll do some amazing works here!',
-            'Dear new member, I welcome you to Designer\'s Club with much love. I hope you would work for the motive of the Server as much as other members!']
+'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
+'The times we spend with you is always so full of joy and happiness. Knowing that you\'ll be with us, brings the smile on our face. Welcome to our Server!',
+"The entire team of Designer's Club is honored to welcome you on board. Enjoy the facilities here and make sure your talents are fully utilized!",
+'We are delighted to have you among us. On behalf of all the members and the management, we would like to extend our warmest welcome and good wishes!',
+'The entire team of Designer\'s Club is thrilled to welcome you on board. We hope you\'ll do some amazing works here!',
+'Dear new member, I welcome you to Designer\'s Club with much love. I hope you would work for the motive of the Server as much as other members!']
 
 imgurl = ['https://i.imgur.com/lZOA6s8.jpg',
 'https://i.imgur.com/kLHHD12.jpg',
@@ -128,17 +128,17 @@ async def warning(warned_user,guild):
             c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))'''
             #names.append(str(message.author))
             #count.append(1)
-    
-    
-async def member_count_channel(channel): 
+
+
+'''async def #member_count_channel(channel):
     guild = client.get_guild(688009516410863647)
     user_count_channel = guild.get_channel(723133466333544519)
     bot_count_channel = guild.get_channel(723133552392142938)
     online_count_channel = guild.get_channel(725622641716887583)
     offline_count_channel = guild.get_channel(725622712034263042)
-    members = guild.members 
+    members = guild.members
     total_member_count = len(members)
-    users = [member for member in members if not member.bot] 
+    users = [member for member in members if not member.bot]
     bots = [member for member in members if member.bot]
     online = [member for member in members if str(member.status) != 'offline']
     offline = [member for member in members if str(member.status) == 'offline']
@@ -147,7 +147,7 @@ async def member_count_channel(channel):
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
     await online_count_channel.edit(name = 'Online - ' + str(len(online)))
     await offline_count_channel.edit(name = 'Offline - ' + str(len(offline)))
-    print('server stats updated!')     
+    print('server stats updated!')'''
 
 
 
@@ -176,10 +176,10 @@ async def on_ready():
     thirty_percent = int((30/100)*total_members) + 1
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
-    await member_count_channel(channel = member_channel_count)
+    await #member_count_channel(channel = member_channel_count)
     await change_presence()
-    
-    #await client.change_presence(status = discord.Status.online, activity = (game1)) 
+
+    #await client.change_presence(status = discord.Status.online, activity = (game1))
     #await client.change_presence(status = discord.Status.online, activity = next(game))
     #elif now == 120:
         #now = 0
@@ -198,7 +198,7 @@ async def kick(ctx,member : discord.Member,*,reason = None):
         mod_logs_channel = ctx.guild.get_channel(713074242543157388)
         kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = kick_embed)
-            
+
 @client.command()
 async def ban(ctx,member : discord.Member,*,reason = None):
     if check_staff(ctx, ctx.message.author):
@@ -212,33 +212,33 @@ async def role(ctx, member : discord.Member, r, *, reason = None):
     mod_logs_channel = ctx.guild.get_channel(713074242543157388)
     role = discord.utils.get(ctx.guild.roles, name = ctx.message.content[2])
     await member.add_roles(role)
-    
+
 
 @client.event
 async def on_member_remove(member):
     mod_logs = member.guild.get_channel(713074242543157388)
     member_channel_count = member.guild.get_channel(713649217054441532)
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
-    await member_count_channel(channel = member_channel_count)
+    await #member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
     await change_presence()
 
-@client.event 
+@client.event
 async def on_member_join(member):
     if str(member) != 'testuser#7926':
         global total_members
         channel = member.guild.get_channel(688009922935652426)
         rules = member.guild.get_channel(689059207466582024)
-        wlcmmsg = random.choice(wlcmlist)
+        wlcmmsg = f'To get full access to the server read the {rules.mention} │rules & react to the message there.'
         tm= len(member.guild.members)
-        verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp 
+        verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp
         member_channel_count = member.guild.get_channel(713649217054441532)
         col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
         mod_logs = member.guild.get_channel(713074242543157388)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
         await change_presence()
-        await member_count_channel(channel = member_channel_count)
+        await #member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
             welcome = discord.Embed(title="Welcome to Designer's Club",
                                         colour=col)
@@ -266,18 +266,19 @@ async def on_member_join(member):
             await channel.send(embed=welcome)
             #await member.add_roles(verifyrole)
 
-@client.event 
+@client.event
 async def on_member_ban(guild, user):
     mod_logs = user.guild.get_channel(713074242543157388)
     ban_embed = discord.Embed(title = user.name + ' Just got banned', colour = discord.Color.blue())
     await mod_logs.send(embed = ban_embed)
 
-@client.event 
+@client.event
 async def on_member_unban(guild, user):
     mod_logs = user.guild.get_channel(713074242543157388)
     unban_embed = discord.Embed(title = user.name + ' Just got Unbanned', colour = discord.Color.dark_magenta())
     await mod_logs.send(embed = unban_embed)
-@client.event
+
+'''@client.event
 async def on_raw_reaction_add(payload):
     print(payload)
 
@@ -308,7 +309,7 @@ async def on_raw_reaction_add(payload):
             artf.set_image(url = link)
             artf.set_author(name = payload.reaction.message.author.mention, icon_url = payload.reaction.message.author.avatar_url)
             await art_features.send(embed = artf)
-    
+
     elif (payload.channel_id == 698393603935830067):
     	if emoji == '🎨':
     		await user.add_roles(artist)
@@ -323,15 +324,15 @@ async def on_raw_reaction_add(payload):
     	elif emoji == '🎮':
     		await user.add_roles(gamer)
     	elif emoji == '🎸':
-    		await user.add_roles(musician)
+    		await user.add_roles(musician)'''
 
-    
+
 @client.event
 async def on_message(message):
         member_channel_count = message.guild.get_channel(713649217054441532)
         print(f'{message.author} >>> {message.content}')
         await client.process_commands(message)
-        await member_count_channel(channel = member_channel_count)
+        await #member_count_channel(channel = member_channel_count)
         if message.content.startswith(prefix+'test') or message.content.startswith('test') or message.content.startswith('Test'):
             if check_staff(message, message.author):           #await trigger_typing()
             #time.sleep(2)
@@ -346,8 +347,8 @@ async def on_message(message):
             embed.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
             await message.author.send(embed = embed)
             await message.channel.purge(limit = 1)
-            
-        elif message.content.startswith(prefix+'clear'): 
+
+        elif message.content.startswith(prefix+'clear'):
             try:
                 if check_staff(message, message.author):
                     s = message.content.split()
@@ -361,27 +362,27 @@ async def on_message(message):
             except:
                 purge = discord.Embed(title = 'Incorrect Usage! Argument goes like this-', description = '!clear <Number of messages>', colour = discord.Colour.red() )
                 purge.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
-                await message.author.send(embed = purge)    
-        
+                await message.author.send(embed = purge)
+
         elif (str(message.channel.category).lower() == 'art') or (str(message.channel) in art_channels):
             if message.content.find('http') != -1:
                 await message.add_reaction('👍')
             elif (message is discord.Attachment):
                 await message.add_reaction('👍')
             #conti(message)
-    
+
         elif message.content.startswith(prefix+'stats'):
-            stats = discord.Embed(title = 'Coming Soon...', description = 'This feature is in development and will be added soon :)') 
+            stats = discord.Embed(title = 'Coming Soon...', description = 'This feature is in development and will be added soon :)')
             stats.set_footer(text = str(datetime.now().time().hour) + ':' +str(datetime.now().time().minute))
             await message.channel.send(embed = stats)
             #conti(message)
             #statistics(message)
             pic = discord.File('stats.png','stats.png')
             #await message.channel.send('stats.png',file = pic)
-        
+
         elif message.content.startswith(prefix+'announce'): #date hour-minute
             pass #threading
-        
+
         elif message.content.find('discord.gg') != -1:
             admin = discord.utils.get(message.author.roles, name = 'Admin')
             founder = discord.utils.get(message.author.roles, name = 'Founder')
@@ -418,4 +419,3 @@ async def on_reaction_add(reaction, user):
         print('yes')'''
 
 client.run(TOKEN, reconnect = True)
-
