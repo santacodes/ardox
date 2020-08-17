@@ -1,4 +1,4 @@
-i import discord
+import discord
 import os
 import sys
 from discord.utils import get
