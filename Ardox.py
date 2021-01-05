@@ -20,7 +20,7 @@ prefix = '#'
 
 client = commands.Bot(command_prefix = prefix)
 
-TOKEN = 'NzA3MDc4NDQ5NzM0NjE1MDcx.XraSAQ.BiDLZFfefjEmITioP9r06FVFK4g'
+TOKEN = ''
 
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
