@@ -20,15 +20,17 @@ prefix = '#'
 
 client = commands.Bot(command_prefix = prefix)
 
-TOKEN = ''
+token = open('token.txt', 'r')
+
+TOKEN = str(token.read())
 
 #guild = client.get_guild(688009516410863647)
 channels = ['bot-commands']
 
 premium_users = ['Santanic#9938','pRonak#8387']
 
-#conn = sqlite3.connect('stats.db')
-#c = conn.cursor()
+conn = sqlite3.connect('stats.db')
+c = conn.cursor()
 
 wlcmlist = ['We have waited so long to have you among us. At last, the time has come. We are most delightfully welcoming you to join us today!',
 'I am so glad to welcome you to my Server. Your presence in our Server is nothing less than a blessing to us!',
@@ -77,11 +79,11 @@ def check_staff(CTX, author):
         return True
 
 
-'''def statistics(message):
-    #c.execute('select name from stats')
-    #names = c.fetchall()
-    #c.execute('select count from stats')
-    #count = c.fetchall()
+def statistics(message):
+    c.execute('select name from stats')
+    names = c.fetchall()
+    c.execute('select count from stats')
+    count = c.fetchall()
     for no in count:
         for na in top_ten_count:
             if no > na and (names[count.index(no)] not in top_ten_names):
@@ -95,7 +97,7 @@ def check_staff(CTX, author):
                 plt.yticks(y_pos,top_ten_names)
                 plt.xlabel('Messages')
                 plt.ylabel('UserID')
-                plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')'''
+                plt.savefig(fname = 'stats',transparent = False, bbox_inches='tight')
 
 
 
@@ -108,7 +110,7 @@ async def warning(warned_user,guild):
 
 
 
-'''def conti(message):
+def conti(message):
     c.execute('select name from stats')
     names = c.fetchall()
     c.execute('select count from stats')
@@ -125,12 +127,12 @@ async def warning(warned_user,guild):
                 indh = top_ten_names.index(str(message.author))
                 top_ten_count[indh] = top_ten_count[indh] + 1
         else:
-            c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))'''
+            c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))
             #names.append(str(message.author))
             #count.append(1)
 
 
-'''async def #member_count_channel(channel):
+async def #member_count_channel(channel):
     guild = client.get_guild(688009516410863647)
     user_count_channel = guild.get_channel(723133466333544519)
     bot_count_channel = guild.get_channel(723133552392142938)
@@ -147,7 +149,7 @@ async def warning(warned_user,guild):
     await bot_count_channel.edit(name = 'Bot Count - ' + str(len(bots)))
     await online_count_channel.edit(name = 'Online - ' + str(len(online)))
     await offline_count_channel.edit(name = 'Offline - ' + str(len(offline)))
-    print('server stats updated!')'''
+    print('server stats updated!')
 
 
 
@@ -159,10 +161,10 @@ async def change_presence():
     act = next(game)
     await client.change_presence(status = discord.Status.online, activity = act)
 
-'''async def change_presence(guild):
+async def change_presence(guild):
     total_members = len(guild.members)
     game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
-    await client.change_presence(status = discord.Status.online, activity = (game1))'''
+    await client.change_presence(status = discord.Status.online, activity = (game1))
 
 @client.event
 async def on_ready():
@@ -278,7 +280,7 @@ async def on_member_unban(guild, user):
     unban_embed = discord.Embed(title = user.name + ' Just got Unbanned', colour = discord.Color.dark_magenta())
     await mod_logs.send(embed = unban_embed)
 
-'''@client.event
+@client.event
 async def on_raw_reaction_add(payload):
     print(payload)
 
@@ -324,7 +326,7 @@ async def on_raw_reaction_add(payload):
     	elif emoji == '🎮':
     		await user.add_roles(gamer)
     	elif emoji == '🎸':
-    		await user.add_roles(musician)'''
+    		await user.add_roles(musician)
 
 
 @client.event
@@ -401,7 +403,7 @@ async def on_message(message):
 
 
 
-'''@client.event
+@client.event
 async def on_reaction_add(reaction, user):
     if (str(reaction.message.channel) in art_channels) and (reaction.count == 1):
         art_features = user.guild.get_channel(704554980782243900)
@@ -416,6 +418,6 @@ async def on_reaction_add(reaction, user):
     elif reaction.emoji == '✅' and str(reaction.message.channel) == 'rules':
         verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
         await user.add_roles(verifyrole)
-        print('yes')'''
+        print('yes')
 
 client.run(TOKEN, reconnect = True)
