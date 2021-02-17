@@ -169,7 +169,7 @@ async def on_ready():
     total_members = len(guild.members)
     print(total_members)
     thirty_percent = int((30/100)*total_members) + 1
-    member_channel_count = guild.get_channel(713649217054441532)
+    member_channel_count = guild.get_channel(#CHANNEL_ID)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
     await change_presence()
 
@@ -389,7 +389,7 @@ async def on_message(message):
 @client.event
 async def on_reaction_add(reaction, user):
     if (str(reaction.message.channel) in art_channels) and (reaction.count == 1):
-        art_features = user.guild.get_channel(704554980782243900)
+        art_features = user.guild.get_channel(#CHANNEL_ID)
         indexl = reaction.message.content.find('http')
         link = reaction.message.content[indexl]
         acol = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
