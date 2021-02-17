@@ -13,6 +13,7 @@ from discord import Activity
 import threading
 import sqlite3
 
+#REWRITE WITH EASY SETUP COMING SOON
 
 prefix = 'PREFIX'
 
