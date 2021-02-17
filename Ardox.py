@@ -7,16 +7,14 @@ from discord import embeds
 import time
 from datetime import datetime
 import numpy as np
-#import matplotlib.pyplot as plt
 from itertools import cycle
 from discord.ext import tasks, commands
 from discord import Activity
 import threading
 import sqlite3
 
-####By Santa####
 
-prefix = '#'
+prefix = 'PREFIX'
 
 client = commands.Bot(command_prefix = prefix)
 
@@ -24,10 +22,9 @@ token = open('token.txt', 'r')
 
 TOKEN = str(token.read())
 
-#guild = client.get_guild(688009516410863647)
-channels = ['bot-commands']
+channels = ['BOTSPAM_CHANNEL_NAME']
 
-premium_users = ['Santanic#9938','pRonak#8387']
+premium_users = ['USERNAME1','USERNAME2']
 
 conn = sqlite3.connect('stats.db')
 c = conn.cursor()
@@ -72,9 +69,9 @@ count = []
 verifyrole = ''
 
 def check_staff(CTX, author):
-    founder_role = CTX.guild.get_role(698172682276962386)
-    admin_role = CTX.guild.get_role(698172766456905758)
-    moderator_role = CTX.guild.get_role(709623320319885334)
+    founder_role = CTX.guild.get_role(#ROLE_ID)
+    admin_role = CTX.guild.get_role(#ROLE_ID)
+    moderator_role = CTX.guild.get_role(#ROLE_ID)
     if (author in founder_role.members) or (author in admin_role.members) or (author in moderator_role.members):
         return True
 
@@ -102,7 +99,7 @@ def statistics(message):
 
 
 async def warning(warned_user,guild):
-    mod_logs_channel = guild.get_channel(713074242543157388)
+    mod_logs_channel = guild.get_channel(#CHANNEL_ID)
     warning_file = open(file = 'warnings.txt', mode = 'w')
     warning_file.write(warned_user)
     warning_embed = discord.Embed(title = 'Warned ' + warned_user, colour = discord.Color.red())
@@ -122,22 +119,18 @@ def conti(message):
             initcount = c.fetchone()
             fincount = initcount + 1
             c.execute(('update stats set count = {} where name = {}').format(fincount,str(message.author)))
-            #count[ind] = count[ind] + 1
             if str(message.author) in top_ten_names:
                 indh = top_ten_names.index(str(message.author))
                 top_ten_count[indh] = top_ten_count[indh] + 1
         else:
             c.execute(('insert into stats (name,count) values ({},{})').format(str(message.author),1))
-            #names.append(str(message.author))
-            #count.append(1)
 
-
-async def #member_count_channel(channel):
-    guild = client.get_guild(688009516410863647)
-    user_count_channel = guild.get_channel(723133466333544519)
-    bot_count_channel = guild.get_channel(723133552392142938)
-    online_count_channel = guild.get_channel(725622641716887583)
-    offline_count_channel = guild.get_channel(725622712034263042)
+async def member_count_channel(channel):
+    guild = client.get_guild(#GUILD_ID)
+    user_count_channel = guild.get_channel(#CHANNEL_ID)
+    bot_count_channel = guild.get_channel(#CHANNEL_ID)
+    online_count_channel = guild.get_channel(#CHANNEL_ID)
+    offline_count_channel = guild.get_channel(#CHANNEL_ID)
     members = guild.members
     total_member_count = len(members)
     users = [member for member in members if not member.bot]
@@ -154,8 +147,8 @@ async def #member_count_channel(channel):
 
 
 async def change_presence():
-    guild = client.get_guild(688009516410863647)
-    game1 = discord.Activity(name = str(len(guild.members))+" Designers",type = discord.ActivityType.watching)
+    guild = client.get_guild(#GUILD_ID)
+    game1 = discord.Activity(name = str(len(guild.members))+" SERVER_NAME",type = discord.ActivityType.watching)
     game2 = discord.Activity(name = prefix + "help", type = discord.ActivityType.listening)
     game = cycle([game1,game2])
     act = next(game)
@@ -163,41 +156,35 @@ async def change_presence():
 
 async def change_presence(guild):
     total_members = len(guild.members)
-    game1 = discord.Activity(name = str(total_members - 1)+" Designers and #help",type = discord.ActivityType.watching)
+    game1 = discord.Activity(name = str(total_members - 1)+" Members and #help",type = discord.ActivityType.watching)
     await client.change_presence(status = discord.Status.online, activity = (game1))
 
 @client.event
 async def on_ready():
     print("Ready!")
     global thirty_percent
-    guild = client.get_guild(688009516410863647)
-    mod_logs_channel = guild.get_channel(713074242543157388)
+    guild = client.get_guild(#GUILD_ID)
+    mod_logs_channel = guild.get_channel(#CHANNEL_ID)
     print(guild)
     total_members = len(guild.members)
     print(total_members)
     thirty_percent = int((30/100)*total_members) + 1
     member_channel_count = guild.get_channel(713649217054441532)
     game1 = discord.Activity(name = str(total_members)+" Designers and #help",type = discord.ActivityType.watching)
-    #await member_count_channel(channel = member_channel_count)
     await change_presence()
-
-    #await client.change_presence(status = discord.Status.online, activity = (game1))
-    #await client.change_presence(status = discord.Status.online, activity = next(game))
-    #elif now == 120:
-        #now = 0
 
 @client.command()
 async def wotm(ctx, member : discord.Member, role : discord.Role, *, additional_message):
-    announcement_channel = ctx.guild.get_channel(709363709754998795)
+    announcement_channel = ctx.guild.get_channel(#CHANNEL_ID)
     wotm_embed = discord.Embed(title = 'Winner Of The Month', description = additional_message)
-    winner_role = ctx.guild.get_role(725651482963083296)
+    winner_role = ctx.guild.get_role(#CHANNEL_ID)
     await member.add_roles(winner_role)
 
 @client.command()
 async def kick(ctx,member : discord.Member,*,reason = None):
     if check_staff(CTX = ctx, author = ctx.message.author):
         await member.kick(reason = reason)
-        mod_logs_channel = ctx.guild.get_channel(713074242543157388)
+        mod_logs_channel = ctx.guild.get_channel(#CHANNEL_ID)
         kick_embed = discord.Embed(title = str(member) + ' Got kicked due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = kick_embed)
 
@@ -205,23 +192,22 @@ async def kick(ctx,member : discord.Member,*,reason = None):
 async def ban(ctx,member : discord.Member,*,reason = None):
     if check_staff(ctx, ctx.message.author):
         await member.ban(reason = reason)
-        mod_logs_channel = ctx.guild.get_channel(713074242543157388)
+        mod_logs_channel = ctx.guild.get_channel(#CHANNEL_ID)
         ban_embed = discord.Embed(title = str(member) + ' Got banned due to the following reason - ' + reason, colour = discord.Color.red())
         await mod_logs_channel.send(embed = ban_embed)
 
 @client.command()
 async def role(ctx, member : discord.Member, r, *, reason = None):
-    mod_logs_channel = ctx.guild.get_channel(713074242543157388)
+    mod_logs_channel = ctx.guild.get_channel(#CHANNEL_ID)
     role = discord.utils.get(ctx.guild.roles, name = ctx.message.content[2])
     await member.add_roles(role)
 
 
 @client.event
 async def on_member_remove(member):
-    mod_logs = member.guild.get_channel(713074242543157388)
-    member_channel_count = member.guild.get_channel(713649217054441532)
+    mod_logs = member.guild.get_channel(#CHANNEL_ID)
+    member_channel_count = member.guild.get_channel(#CHANNEL_ID)
     leave_embed = discord.Embed(title = member.name + ' Just Left the Server',colour = discord.Color.red())
-    #await member_count_channel(channel = member_channel_count)
     await mod_logs.send(embed = leave_embed)
     await change_presence()
 
@@ -229,54 +215,51 @@ async def on_member_remove(member):
 async def on_member_join(member):
     if str(member) != 'testuser#7926':
         global total_members
-        channel = member.guild.get_channel(688009922935652426)
-        rules = member.guild.get_channel(689059207466582024)
+        channel = member.guild.get_channel(#CHANNEL_ID)
+        rules = member.guild.get_channel(#CHANNEL_ID)
         wlcmmsg = f'To get full access to the server read the {rules.mention} │rules & react to the message there.'
         tm= len(member.guild.members)
         verifyrole = discord.utils.get(member.guild.roles, name = 'Member') #temp
-        member_channel_count = member.guild.get_channel(713649217054441532)
+        member_channel_count = member.guild.get_channel(#CHANNEL_ID)
         col = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
-        mod_logs = member.guild.get_channel(713074242543157388)
+        mod_logs = member.guild.get_channel(#CHANNEL_ID)
         join_embed = discord.Embed(title = member.name + ' Just Joined the Server', colour = discord.Color.green())
         await mod_logs.send(embed = join_embed)
         await change_presence()
-        #await member_count_channel(channel = member_channel_count)
         if int(str(tm+1)[-1]) == 1:
-            welcome = discord.Embed(title="Welcome to Designer's Club",
+            welcome = discord.Embed(title="Welcome to Server_Name",
                                         colour=col)
-            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'st Member of Designer\'s Club',value=member.mention)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'st Member of Server_Name',value=member.mention)
             welcome.set_image(url = random.choice(imgurl))
             await channel.send(embed=welcome)
         elif int(str(tm+1)[-1]) == 2:
-            welcome = discord.Embed(title="Welcome to Designer's Club",
+            welcome = discord.Embed(title="Welcome to Server_Name",
                                     colour=col)
-            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Designer\'s Club',value=member.mention)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'nd Member of Server_Name',value=member.mention)
             welcome.set_image(url = random.choice(imgurl))
             await channel.send(embed=welcome)
-            #on_ready()
         elif int(str(tm+1)[-1]) == 3:
-            welcome = discord.Embed(title="Welcome to Designer's Club",
+            welcome = discord.Embed(title="Welcome to Server_Name",
                                     colour=col)
-            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'rd Member of Designer\'s Club',value=member.mention)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'rd Member of Server_Name',value=member.mention)
             welcome.set_image(url = random.choice(imgurl))
             await channel.send(embed=welcome)
         else:
-            welcome = discord.Embed(title="Welcome to Designer's Club",
+            welcome = discord.Embed(title="Welcome to Server_Name",
                                     colour=col)
-            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'th Member of Designer\'s Club',value=member.mention)
+            welcome.add_field(name=random.choice(wlcmlist)+', You are '+ str(tm+1) + 'th Member of Server_Name',value=member.mention)
             welcome.set_image(url = random.choice(imgurl))
             await channel.send(embed=welcome)
-            #await member.add_roles(verifyrole)
 
 @client.event
 async def on_member_ban(guild, user):
-    mod_logs = user.guild.get_channel(713074242543157388)
+    mod_logs = user.guild.get_channel(#CHANNEL_ID)
     ban_embed = discord.Embed(title = user.name + ' Just got banned', colour = discord.Color.blue())
     await mod_logs.send(embed = ban_embed)
 
 @client.event
 async def on_member_unban(guild, user):
-    mod_logs = user.guild.get_channel(713074242543157388)
+    mod_logs = user.guild.get_channel(#CHANNEL_ID)
     unban_embed = discord.Embed(title = user.name + ' Just got Unbanned', colour = discord.Color.dark_magenta())
     await mod_logs.send(embed = unban_embed)
 
@@ -285,7 +268,7 @@ async def on_raw_reaction_add(payload):
     print(payload)
 
     emoji = payload.emoji.name
-    channelid = 689059207466582024                #verifychannelID
+    channelid = #CHANNEL_ID                #verifychannelID
     user = payload.member
     verifyrole = discord.utils.get(user.guild.roles, name = 'Member')
     #reactionroles
@@ -303,7 +286,7 @@ async def on_raw_reaction_add(payload):
         print('yes')
     elif emoji == '👍' and emoji.count == thirty_percent:
         if (str(payload.reaction.message.channel) in art_channels):
-            art_features = user.guild.get_channel(704554980782243900)
+            art_features = user.guild.get_channel(#CHANNEL_ID)
             indexl = payload.reaction.message.content.find('http')
             link = payload.reaction.message.content[indexl]
             acol = discord.Color.from_rgb(random.choice(r), random.choice(g), random.choice(b))
@@ -312,7 +295,7 @@ async def on_raw_reaction_add(payload):
             artf.set_author(name = payload.reaction.message.author.mention, icon_url = payload.reaction.message.author.avatar_url)
             await art_features.send(embed = artf)
 
-    elif (payload.channel_id == 698393603935830067):
+    elif (payload.channel_id == #CHANNEL_ID):
     	if emoji == '🎨':
     		await user.add_roles(artist)
     	elif emoji == '📷':
@@ -331,7 +314,7 @@ async def on_raw_reaction_add(payload):
 
 @client.event
 async def on_message(message):
-        member_channel_count = message.guild.get_channel(713649217054441532)
+        member_channel_count = message.guild.get_channel(#CHANNEL_ID)
         print(f'{message.author} >>> {message.content}')
         await client.process_commands(message)
         #await member_count_channel(channel = member_channel_count)
