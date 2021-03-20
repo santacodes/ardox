@@ -54,13 +54,13 @@ class Moderation(commands.Cog):
     async def unban(self, ctx, *, member:discord.Member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split('#')
-        	for ban_entry in banned_users:
-		user = ban_entry.user
-		if (user.name, user.discriminator) == (member_name, member_discriminator):
- 			await ctx.guild.unban(user)
-            embed = discord.Embed(title=f"{member.name} Unbanned✅", color=0x66ff00)
-            await ctx.send(embed = embed, delete_after = 3)
-            return   #modlogs to be added (create a seperate function for it
+        for ban_entry in banned_users:
+            user = ban_entry.user
+            if (user.name, user.discriminator) == (member_name, member_discriminator):
+                await ctx.guild.unban(user)
+                embed = discord.Embed(title=f"{member.name} Unbanned✅", color=0x66ff00)
+                await ctx.send(embed = embed, delete_after = 3)
+                return   #modlogs to be added (create a seperate function for it
 
     @commands.command()
     @has_permissions(manage_roles = True)
